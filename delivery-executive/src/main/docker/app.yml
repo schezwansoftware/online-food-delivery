@@ -1,0 +1,30 @@
+version: '2'
+services:
+    deliveryexecutive-app:
+        image: deliveryexecutive
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
+            - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
+            - SPRING_DATA_CASSANDRA_CONTACTPOINTS=deliveryexecutive-cassandra
+            - JHIPSTER_SLEEP=80 # gives time for uaa and the Cassandra cluster to start and execute the migration scripts
+    deliveryexecutive-cassandra:
+        extends:
+            file: cassandra-cluster.yml
+            service: deliveryexecutive-cassandra
+    deliveryexecutive-cassandra-node:
+        image: cassandra:3.9
+        environment:
+            - CASSANDRA_SEEDS=deliveryexecutive-cassandra
+    deliveryexecutive-cassandra-migration:
+        extends:
+            file: cassandra-migration.yml
+            service: deliveryexecutive-cassandra-migration
+        environment:
+            - CREATE_KEYSPACE_SCRIPT=create-keyspace-prod.cql
+    jhipster-registry:
+        extends:
+            file: jhipster-registry.yml
+            service: jhipster-registry
+        environment:
+            - SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCH_LOCATIONS=file:./central-config/docker-config/
