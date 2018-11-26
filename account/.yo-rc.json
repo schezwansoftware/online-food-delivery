@@ -1,0 +1,39 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.codesetters.account",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "5.4.2",
+    "applicationType": "uaa",
+    "baseName": "account",
+    "packageName": "com.codesetters.account",
+    "packageFolder": "com/codesetters/account",
+    "serverPort": "9697",
+    "authenticationType": "uaa",
+    "cacheProvider": "no",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "cassandra",
+    "devDatabaseType": "cassandra",
+    "prodDatabaseType": "cassandra",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "NjI2ZWZlNDBkN2QyMzFjYzU4YmM1ODIzZGUwMjg2N2M3NWZkNWM5OWJhM2Y0M2E2MTY1ZGYxYWM2NGJlMzU2Y2YzYjczOTQ3ZjllYTA5OGM5MWMyMjNlMmY2MmNkNzEzZWNmNTJkZmRjNjMwZDJmMWJlNWQxNzljYTZlMTNlYTM=",
+    "enableTranslation": true,
+    "languages": [
+      "en",
+      "hi"
+    ],
+    "testFrameworks": [
+      "gatling"
+    ],
+    "jhiPrefix": "jhi",
+    "clientPackageManager": "npm",
+    "nativeLanguage": "en",
+    "skipClient": true
+  }
+}
