@@ -1,0 +1,41 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.codesetters.restaurantservice",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "5.4.2",
+    "applicationType": "microservice",
+    "baseName": "restaurantService",
+    "packageName": "com.codesetters.restaurantservice",
+    "packageFolder": "com/codesetters/restaurantservice",
+    "serverPort": "9091",
+    "authenticationType": "uaa",
+    "uaaBaseName": "account",
+    "cacheProvider": "no",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "cassandra",
+    "devDatabaseType": "cassandra",
+    "prodDatabaseType": "cassandra",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "OTcxYmQ2OTFhNTc5ZjJmZjU4NGU3ZmQ3Y2VkN2QwNzdkNzY4MDY0MTU2ODJmNWNiYjY5ZjI1Mzc5MjE4MjNlZDg4MDUzNzhlMGFlNmVhMmRiN2JlNGNhZmUyMGE0NGJmZGQ2ZjkxOGU1ZTBhOWFjZjFiYzAxZTFhZWM1ZGZkY2I=",
+    "enableTranslation": true,
+    "languages": [
+      "en",
+      "hi"
+    ],
+    "testFrameworks": [
+      "gatling"
+    ],
+    "jhiPrefix": "jhi",
+    "clientPackageManager": "npm",
+    "nativeLanguage": "en",
+    "skipClient": true,
+    "skipUserManagement": true
+  }
+}
