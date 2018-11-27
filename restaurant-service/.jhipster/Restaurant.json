@@ -1,0 +1,39 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "restaurantService",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "cuisineTypes",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "currentMenuId",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "executiveLogin",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "locationId",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "registrationDate",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20181127053608",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "restaurant",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "microserviceName": "restaurantService"
+}
