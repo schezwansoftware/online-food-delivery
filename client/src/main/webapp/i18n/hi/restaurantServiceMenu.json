@@ -1,0 +1,28 @@
+
+{
+    "foodClientApp": {
+        "restaurantServiceMenu" : {
+            "home": {
+                "title": "Menus",
+                "createLabel": "नया Menu बनाएँ",
+                "createOrEditLabel": "Menu बनाएँ या संपादित करें"
+            },
+            "delete": {
+                "question": "Menu [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Menu"
+            },
+            "restaurantId": "Restaurant Id",
+            "startDate": "Start Date",
+            "endDate": "End Date"
+        }
+    },
+    "restaurantServiceApp": {
+        "restaurantServiceMenu" : {
+            "created": "एक नया Menu [identifier: {{ param }}] तैयार है",
+            "updated": "एक Menu [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Menu [identifier: {{ param }}] हटा दिया है"
+        }
+    }
+}

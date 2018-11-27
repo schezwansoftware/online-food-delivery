@@ -1,0 +1,28 @@
+
+{
+    "foodClientApp": {
+        "restaurantServiceMenu" : {
+            "home": {
+                "title": "Menus",
+                "createLabel": "Create a new Menu",
+                "createOrEditLabel": "Create or edit a Menu"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Menu {{ id }}?"
+            },
+            "detail": {
+                "title": "Menu"
+            },
+            "restaurantId": "Restaurant Id",
+            "startDate": "Start Date",
+            "endDate": "End Date"
+        }
+    },
+    "restaurantServiceApp": {
+        "restaurantServiceMenu" : {
+            "created": "A new Menu is created with identifier {{ param }}",
+            "updated": "A Menu is updated with identifier {{ param }}",
+            "deleted": "A Menu is deleted with identifier {{ param }}"
+        }
+    }
+}

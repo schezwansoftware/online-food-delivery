@@ -1,5 +1,6 @@
 package com.codesetters.restaurantservice.service;
 
+import com.codesetters.restaurantservice.service.dto.RestLocationDTO;
 import com.codesetters.restaurantservice.service.dto.RestaurantDTO;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public interface RestaurantService {
      * @return the persisted entity
      */
     RestaurantDTO save(RestaurantDTO restaurantDTO);
+
+    RestLocationDTO saveRestLocation(RestLocationDTO restLocationDTO);
 
     /**
      * Get all the restaurants.

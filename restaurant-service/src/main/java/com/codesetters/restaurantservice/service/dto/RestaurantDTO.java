@@ -3,6 +3,7 @@ package com.codesetters.restaurantservice.service.dto;
 import java.time.ZonedDateTime;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -12,7 +13,7 @@ public class RestaurantDTO implements Serializable {
 
     private UUID id;
 
-    private String cuisineTypes;
+    private Set<String> cuisineTypes;
 
     private UUID currentMenuId;
 
@@ -32,11 +33,11 @@ public class RestaurantDTO implements Serializable {
         this.id = id;
     }
 
-    public String getCuisineTypes() {
+    public Set<String> getCuisineTypes() {
         return cuisineTypes;
     }
 
-    public void setCuisineTypes(String cuisineTypes) {
+    public void setCuisineTypes(Set<String> cuisineTypes) {
         this.cuisineTypes = cuisineTypes;
     }
 

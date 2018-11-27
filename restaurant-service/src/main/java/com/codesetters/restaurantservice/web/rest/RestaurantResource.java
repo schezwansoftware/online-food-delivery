@@ -2,6 +2,7 @@ package com.codesetters.restaurantservice.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.codesetters.restaurantservice.service.RestaurantService;
+import com.codesetters.restaurantservice.service.dto.RestLocationDTO;
 import com.codesetters.restaurantservice.web.rest.errors.BadRequestAlertException;
 import com.codesetters.restaurantservice.web.rest.util.HeaderUtil;
 import com.codesetters.restaurantservice.service.dto.RestaurantDTO;
@@ -116,5 +117,16 @@ public class RestaurantResource {
         log.debug("REST request to delete Restaurant : {}", id);
         restaurantService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @PostMapping("/restaurants-location")
+    @Timed
+    public ResponseEntity<RestLocationDTO> createRestaurantAndLocation(@RequestBody RestLocationDTO restLocationDTO) throws URISyntaxException {
+        log.debug("REST request to save Restaurant and Location : {}", restLocationDTO);
+
+        RestLocationDTO result = restaurantService.saveRestLocation(restLocationDTO);
+        return ResponseEntity.created(new URI("/api/restaurants-location/"))
+            .headers(HeaderUtil.createEntityCreationAlert("RestLocation","created"))
+            .body(result);
     }
 }
