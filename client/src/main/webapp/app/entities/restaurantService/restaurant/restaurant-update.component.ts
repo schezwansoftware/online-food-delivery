@@ -17,6 +17,7 @@ export class RestaurantUpdateComponent implements OnInit {
     restaurant: IRestaurant;
     isSaving: boolean;
     registrationDate: string;
+    cuisineTypes: string[];
     restaurantLocation: IRestaurantLocation;
 
     constructor(private restaurantService: RestaurantService, private activatedRoute: ActivatedRoute) {}
@@ -24,6 +25,9 @@ export class RestaurantUpdateComponent implements OnInit {
     ngOnInit() {
         this.restaurantLocation = {};
         this.isSaving = false;
+        this.restaurantService.cuisineTypes().subscribe(cuisineTypes => {
+            this.cuisineTypes = cuisineTypes;
+        });
         this.activatedRoute.data.subscribe(({ restaurant }) => {
             this.restaurant = restaurant;
             this.registrationDate =
@@ -37,6 +41,7 @@ export class RestaurantUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        console.log(this.restaurantLocation);
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IRestaurant>>) {

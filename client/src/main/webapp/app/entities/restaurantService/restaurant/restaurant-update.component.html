@@ -9,6 +9,14 @@
                     <input type="text" class="form-control" name="restaurantName" id="field_restaurantName"
                         [(ngModel)]="restaurantLocation.name" (blur)="getLocation()"/>
                 </div>
+
+                <div class="form-group">
+                    <label>Cuisine Types</label>
+                    <select class="form-control" multiple name="cuisineTypes" [(ngModel)]="restaurantLocation.cuisineTypes">
+                        <option *ngFor="let cuisineType of cuisineTypes" [value]="cuisineType">{{cuisineType}}</option>
+                    </select>
+                </div>
+
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
