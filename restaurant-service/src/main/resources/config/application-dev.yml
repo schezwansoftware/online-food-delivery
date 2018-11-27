@@ -24,7 +24,7 @@ eureka:
         prefer-ip-address: true
     client:
         service-url:
-            defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
+            defaultZone: http://admin:${jhipster.registry.password}@10.10.1.120:8761/eureka/
 
 spring:
     profiles:
@@ -42,7 +42,7 @@ spring:
         serialization.indent_output: true
     data:
         cassandra:
-            contactPoints: localhost
+            contactPoints: 10.10.1.120
             protocolVersion: V4
             compression: LZ4
             keyspaceName: restaurantService
