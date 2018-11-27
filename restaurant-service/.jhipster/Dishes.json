@@ -1,0 +1,30 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "menuId",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "dishName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dishType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dishPrice",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20181127080244",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "dishes",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "microserviceName": "restaurantService",
+    "searchEngine": false
+}

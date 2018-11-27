@@ -29,8 +29,10 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.ZoneOffset;
 import java.time.ZoneId;
+import java.util.HashSet;
 import java.util.List;
 
+import java.util.Set;
 import java.util.UUID;
 
 import static com.codesetters.restaurantservice.web.rest.TestUtil.sameInstant;
@@ -49,8 +51,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = {SecurityBeanOverrideConfiguration.class, RestaurantServiceApp.class})
 public class RestaurantResourceIntTest extends AbstractCassandraTest {
 
-    private static final String DEFAULT_CUISINE_TYPES = "AAAAAAAAAA";
-    private static final String UPDATED_CUISINE_TYPES = "BBBBBBBBBB";
+    private static final Set<String> DEFAULT_CUISINE_TYPES = new HashSet<>();
+
+    private static final Set<String> UPDATED_CUISINE_TYPES = new HashSet<>();
 
     private static final UUID DEFAULT_CURRENT_MENU_ID = UUID.randomUUID();
     private static final UUID UPDATED_CURRENT_MENU_ID = UUID.randomUUID();

@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="dishes">
+            <h2><span jhiTranslate="foodClientApp.restaurantServiceDishes.detail.title">Dishes</span> {{dishes.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="foodClientApp.restaurantServiceDishes.menuId">Menu Id</span></dt>
+                <dd>
+                    <span>{{dishes.menuId}}</span>
+                </dd>
+                <dt><span jhiTranslate="foodClientApp.restaurantServiceDishes.dishName">Dish Name</span></dt>
+                <dd>
+                    <span>{{dishes.dishName}}</span>
+                </dd>
+                <dt><span jhiTranslate="foodClientApp.restaurantServiceDishes.dishType">Dish Type</span></dt>
+                <dd>
+                    <span>{{dishes.dishType}}</span>
+                </dd>
+                <dt><span jhiTranslate="foodClientApp.restaurantServiceDishes.dishPrice">Dish Price</span></dt>
+                <dd>
+                    <span>{{dishes.dishPrice}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/dishes', dishes.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
