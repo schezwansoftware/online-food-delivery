@@ -1,0 +1,31 @@
+
+{
+    "foodClientApp": {
+        "restaurantServiceRestaurant" : {
+            "home": {
+                "title": "Restaurants",
+                "createLabel": "नया Restaurant बनाएँ",
+                "createOrEditLabel": "Restaurant बनाएँ या संपादित करें"
+            },
+            "delete": {
+                "question": "Restaurant [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Restaurant"
+            },
+            "name": "Name",
+            "locationId": "Location Id",
+            "executiveLogin": "Executive Login",
+            "cuisineTypes": "Cuisine Types",
+            "currentMenuId": "Current Menu Id",
+            "registrationDate": "Registration Date"
+        }
+    },
+    "restaurantServiceApp": {
+        "restaurantServiceRestaurant" : {
+            "created": "एक नया Restaurant [identifier: {{ param }}] तैयार है",
+            "updated": "एक Restaurant [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Restaurant [identifier: {{ param }}] हटा दिया है"
+        }
+    }
+}
