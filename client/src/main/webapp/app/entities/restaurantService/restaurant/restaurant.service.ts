@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { map } from 'rxjs/operators';
@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IRestaurant } from 'app/shared/model/restaurantService/restaurant.model';
+import { IRestaurantLocation } from '../../../shared/model/restaurantService/restaurant-location.model';
 
 type EntityResponseType = HttpResponse<IRestaurant>;
 type EntityArrayResponseType = HttpResponse<IRestaurant[]>;
@@ -15,6 +16,7 @@ type EntityArrayResponseType = HttpResponse<IRestaurant[]>;
 @Injectable({ providedIn: 'root' })
 export class RestaurantService {
     private resourceUrl = SERVER_API_URL + 'restaurantservice/api/restaurants';
+    private restaurantsLocationUrl = SERVER_API_URL + 'restaurantservice/api/restaurants-location';
 
     constructor(private http: HttpClient) {}
 
@@ -44,11 +46,17 @@ export class RestaurantService {
             .get<IRestaurant[]>(this.resourceUrl, { params: options, observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
-
     delete(id: string): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
+    cuisineTypes(): Observable<string[]> {
+        return of(['Chinese', 'South-Indian', 'North-Indian', 'Continental']);
+    }
+
+    saveRestaurant(restaurant: IRestaurantLocation): Observable<EntityResponseType> {
+        return this.http.post<IRestaurant>(this.restaurantsLocationUrl, restaurant, { observe: 'response' });
+    }
     private convertDateFromClient(restaurant: IRestaurant): IRestaurant {
         const copy: IRestaurant = Object.assign({}, restaurant, {
             registrationDate:
