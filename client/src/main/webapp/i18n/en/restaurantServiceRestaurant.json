@@ -1,0 +1,31 @@
+
+{
+    "foodClientApp": {
+        "restaurantServiceRestaurant" : {
+            "home": {
+                "title": "Restaurants",
+                "createLabel": "Create a new Restaurant",
+                "createOrEditLabel": "Create or edit a Restaurant"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Restaurant {{ id }}?"
+            },
+            "detail": {
+                "title": "Restaurant"
+            },
+            "name": "Name",
+            "locationId": "Location Id",
+            "executiveLogin": "Executive Login",
+            "cuisineTypes": "Cuisine Types",
+            "currentMenuId": "Current Menu Id",
+            "registrationDate": "Registration Date"
+        }
+    },
+    "restaurantServiceApp": {
+        "restaurantServiceRestaurant" : {
+            "created": "A new Restaurant is created with identifier {{ param }}",
+            "updated": "A Restaurant is updated with identifier {{ param }}",
+            "deleted": "A Restaurant is deleted with identifier {{ param }}"
+        }
+    }
+}
