@@ -7,6 +7,7 @@ import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 
 import { IRestaurant } from 'app/shared/model/restaurantService/restaurant.model';
 import { RestaurantService } from './restaurant.service';
+import { IRestaurantLocation } from '../../../shared/model/restaurantService/restaurant-location.model';
 
 @Component({
     selector: 'jhi-restaurant-update',
@@ -16,11 +17,17 @@ export class RestaurantUpdateComponent implements OnInit {
     restaurant: IRestaurant;
     isSaving: boolean;
     registrationDate: string;
+    cuisineTypes: string[];
+    restaurantLocation: IRestaurantLocation;
 
     constructor(private restaurantService: RestaurantService, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
+        this.restaurantLocation = {};
         this.isSaving = false;
+        this.restaurantService.cuisineTypes().subscribe(cuisineTypes => {
+            this.cuisineTypes = cuisineTypes;
+        });
         this.activatedRoute.data.subscribe(({ restaurant }) => {
             this.restaurant = restaurant;
             this.registrationDate =
@@ -34,12 +41,7 @@ export class RestaurantUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.restaurant.registrationDate = this.registrationDate != null ? moment(this.registrationDate, DATE_TIME_FORMAT) : null;
-        if (this.restaurant.id !== undefined) {
-            this.subscribeToSaveResponse(this.restaurantService.update(this.restaurant));
-        } else {
-            this.subscribeToSaveResponse(this.restaurantService.create(this.restaurant));
-        }
+        this.subscribeToSaveResponse(this.restaurantService.saveRestaurant(this.restaurantLocation));
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IRestaurant>>) {
@@ -53,5 +55,19 @@ export class RestaurantUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
+    }
+
+    getLocation() {
+        if (this.restaurantLocation.longitude && this.restaurantLocation.latitude) {
+            return;
+        }
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                this.restaurantLocation.latitude = position.coords.latitude;
+                this.restaurantLocation.longitude = position.coords.longitude;
+            });
+        } else {
+            alert('Geo Location is not supported by this browser');
+        }
     }
 }
