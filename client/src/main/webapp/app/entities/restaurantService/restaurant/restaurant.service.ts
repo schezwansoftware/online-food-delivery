@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IRestaurant } from 'app/shared/model/restaurantService/restaurant.model';
+import { IRestaurantLocation } from '../../../shared/model/restaurantService/restaurant-location.model';
 
 type EntityResponseType = HttpResponse<IRestaurant>;
 type EntityArrayResponseType = HttpResponse<IRestaurant[]>;
@@ -15,6 +16,7 @@ type EntityArrayResponseType = HttpResponse<IRestaurant[]>;
 @Injectable({ providedIn: 'root' })
 export class RestaurantService {
     private resourceUrl = SERVER_API_URL + 'restaurantservice/api/restaurants';
+    private restaurantsLocationUrl = SERVER_API_URL + 'restaurantservice/api/restaurants-location';
 
     constructor(private http: HttpClient) {}
 
@@ -50,6 +52,10 @@ export class RestaurantService {
 
     cuisineTypes(): Observable<string[]> {
         return of(['Chinese', 'South-Indian', 'North-Indian', 'Continental']);
+    }
+
+    saveRestaurant(restaurant: IRestaurantLocation): Observable<EntityResponseType> {
+        return this.http.post<IRestaurant>(this.restaurantsLocationUrl, restaurant, { observe: 'response' });
     }
     private convertDateFromClient(restaurant: IRestaurant): IRestaurant {
         const copy: IRestaurant = Object.assign({}, restaurant, {

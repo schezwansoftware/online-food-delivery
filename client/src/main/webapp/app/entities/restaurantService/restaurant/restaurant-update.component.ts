@@ -41,7 +41,7 @@ export class RestaurantUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        console.log(this.restaurantLocation);
+        this.subscribeToSaveResponse(this.restaurantService.saveRestaurant(this.restaurantLocation));
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IRestaurant>>) {
