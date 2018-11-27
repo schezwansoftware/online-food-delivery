@@ -8,6 +8,7 @@
             "entities": {
                 "main": "एंटिटीज़",
                 "restaurantServiceRestaurant": "Restaurant",
+                "restaurantServiceLocation": "Location",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

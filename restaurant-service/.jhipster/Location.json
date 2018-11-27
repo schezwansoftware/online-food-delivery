@@ -1,0 +1,50 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "state",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "city",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "locality",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "longitude",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "latitude",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "pincode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "countryName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "countryid",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20181127041955",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "location",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "microserviceName": "restaurantService",
+    "searchEngine": false
+}
