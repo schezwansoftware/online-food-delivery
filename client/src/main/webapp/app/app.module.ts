@@ -17,6 +17,7 @@ import { FoodClientHomeModule } from './home/home.module';
 import { FoodClientAccountModule } from './account/account.module';
 import { FoodClientEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
+import { FoodClientAppZomatoRestaurantsModule } from './zomato-restaurants/zomato-restaurants.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 
@@ -29,7 +30,8 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         FoodClientCoreModule,
         FoodClientHomeModule,
         FoodClientAccountModule,
-        FoodClientEntityModule
+        FoodClientEntityModule,
+        FoodClientAppZomatoRestaurantsModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
