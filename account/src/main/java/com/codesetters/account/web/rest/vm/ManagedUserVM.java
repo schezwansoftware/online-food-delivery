@@ -15,6 +15,8 @@ public class ManagedUserVM extends UserDTO {
     @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
     private String password;
 
+    private String authority;
+
     public ManagedUserVM() {
         // Empty constructor needed for Jackson.
     }
@@ -30,6 +32,15 @@ public class ManagedUserVM extends UserDTO {
     @Override
     public String toString() {
         return "ManagedUserVM{" +
+            ", authority='" + getAuthority() + '\'' +
             "} " + super.toString();
+    }
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 }

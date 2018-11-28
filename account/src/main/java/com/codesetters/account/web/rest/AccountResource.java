@@ -39,6 +39,8 @@ public class AccountResource {
 
     private final MailService mailService;
 
+    private static final String RESTAURANT_EXECUTIVE = "RESTAURANT_EXECUTIVE";
+
     public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
 
         this.userRepository = userRepository;
@@ -61,7 +63,12 @@ public class AccountResource {
         if (!checkPasswordLength(managedUserVM.getPassword())) {
             throw new InvalidPasswordException();
         }
-        User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
+        User user = null;
+        if (!StringUtils.isEmpty(managedUserVM.getAuthority()) && managedUserVM.getAuthority().equals(RESTAURANT_EXECUTIVE)){
+         user = userService.registerRestaurantExecutive(managedUserVM,managedUserVM.getPassword());
+        }else {
+            user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
+        }
         mailService.sendActivationEmail(user);
     }
 

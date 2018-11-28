@@ -83,6 +83,15 @@ public class RestaurantServiceImpl implements RestaurantService {
             .map(restaurantMapper::toDto);
     }
 
+    @Override
+    public Optional<RestaurantDTO> findOneByRestaurantExecutive(String login) {
+        List<RestaurantDTO> restaurantDTOS = this.findAll().stream().filter(restaurantDTO -> restaurantDTO.getExecutiveLogin().equals(login)).collect(Collectors.toList());
+        if (restaurantDTOS.isEmpty()){
+            return Optional.empty();
+        }
+        return Optional.of(restaurantDTOS.get(0));
+    }
+
     /**
      * Delete the restaurant by id.
      *
@@ -95,8 +104,8 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public RestLocationDTO saveRestLocation(RestLocationDTO restLocationDTO){
-        RestaurantDTO restaurantDTO=new RestaurantDTO();
+    public RestLocationDTO saveRestLocation(RestLocationDTO restLocationDTO) {
+        RestaurantDTO restaurantDTO = new RestaurantDTO();
         LocationDTO locationDTO = new LocationDTO();
 
         restaurantDTO.setCuisineTypes(restLocationDTO.getCuisineTypes());
@@ -111,9 +120,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         locationDTO.setLongitude(restLocationDTO.getLongitude());
         locationDTO.setLocality(restLocationDTO.getLocality());
         locationDTO.setId(UUID.randomUUID());
-
         LocationDTO savelocationDTO = new LocationDTO();
-
         savelocationDTO = locationService.save(locationDTO);
         if(savelocationDTO !=null){
             restaurantDTO.setLocationId(savelocationDTO.getId());

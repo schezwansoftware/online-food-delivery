@@ -38,6 +38,8 @@ public interface RestaurantService {
      */
     Optional<RestaurantDTO> findOne(UUID id);
 
+    Optional<RestaurantDTO> findOneByRestaurantExecutive(String login);
+
     /**
      * Delete the "id" restaurant.
      *
