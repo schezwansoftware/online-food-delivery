@@ -1,5 +1,6 @@
+///<reference path="../../../../../../../node_modules/@angular/common/http/src/response.d.ts"/>
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
@@ -17,6 +18,8 @@ type EntityArrayResponseType = HttpResponse<IRestaurant[]>;
 export class RestaurantService {
     private resourceUrl = SERVER_API_URL + 'restaurantservice/api/restaurants';
     private restaurantsLocationUrl = SERVER_API_URL + 'restaurantservice/api/restaurants-location';
+    private ZOMATO_API_KEY = 'b1fbbb496c364712fb7dd4829003902d';
+    private ZOMATO_RESTAURANT_SEARCH_URL = 'https://developers.zomato.com/api/v2.1/search';
 
     constructor(private http: HttpClient) {}
 
@@ -56,6 +59,11 @@ export class RestaurantService {
 
     saveRestaurant(restaurant: IRestaurantLocation): Observable<EntityResponseType> {
         return this.http.post<IRestaurant>(this.restaurantsLocationUrl, restaurant, { observe: 'response' });
+    }
+
+    findAllZomatoRestaurants(): Observable<any> {
+        const headers = new HttpHeaders({ 'user-key': this.ZOMATO_API_KEY });
+        return this.http.get<any>(this.ZOMATO_RESTAURANT_SEARCH_URL, { headers });
     }
     private convertDateFromClient(restaurant: IRestaurant): IRestaurant {
         const copy: IRestaurant = Object.assign({}, restaurant, {

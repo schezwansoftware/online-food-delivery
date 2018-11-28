@@ -1,0 +1,13 @@
+<div class="row card-group">
+    <div class="col-3" *ngFor="let restaurant of restaurants">
+        <div class="card border-secondary mb-3" style="max-width: 20rem;">
+            <div class="card-body">
+                <h4 class="card-title">{{restaurant.restaurant.name}}</h4>
+                <p class="card-text">{{restaurant.restaurant.location.address}}</p>
+                <a class="card-link text-primary">{{restaurant.restaurant.location.city}}</a>
+                <a class="card-link text-primary">{{restaurant.restaurant.user_rating.aggregate_rating}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
