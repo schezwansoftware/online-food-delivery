@@ -3,6 +3,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { LoginModalService, Principal, Account } from 'app/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-home',
@@ -13,7 +14,12 @@ export class HomeComponent implements OnInit {
     account: Account;
     modalRef: NgbModalRef;
 
-    constructor(private principal: Principal, private loginModalService: LoginModalService, private eventManager: JhiEventManager) {}
+    constructor(
+        private principal: Principal,
+        private loginModalService: LoginModalService,
+        private eventManager: JhiEventManager,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         this.principal.identity().then(account => {
@@ -23,12 +29,20 @@ export class HomeComponent implements OnInit {
     }
 
     registerAuthenticationSuccess() {
+        console.log('yha p');
         this.eventManager.subscribe('authenticationSuccess', message => {
             this.principal.identity().then(account => {
                 this.account = account;
+                const auth = this.account.authorities;
+                console.log(auth);
+                if (auth.indexOf('ROLE_RESTAURENT_EXECUTIVE') !== -1) {
+                    this.checkRestaurent(this.account);
+                }
             });
         });
     }
+
+    checkRestaurent(object) {}
 
     isAuthenticated() {
         return this.principal.isAuthenticated();
