@@ -42,6 +42,12 @@ export class RestaurantService {
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
+    findByLogin(): Observable<EntityResponseType> {
+        return this.http
+            .get<IRestaurant>(`${this.resourceUrl}/user`, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
+
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http
