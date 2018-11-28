@@ -6,6 +6,7 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from 'app/shared';
 import { LoginModalService } from 'app/core';
 import { Register } from './register.service';
+import { RESTAURANT_EXECUTIVE_AUTHORITY } from '../../shared/constants/input.constants';
 
 @Component({
     selector: 'jhi-register',
@@ -48,6 +49,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             this.errorEmailExists = null;
             this.languageService.getCurrent().then(key => {
                 this.registerAccount.langKey = key;
+                this.registerAccount.authority = RESTAURANT_EXECUTIVE_AUTHORITY;
                 this.registerService.save(this.registerAccount).subscribe(
                     () => {
                         this.success = true;
