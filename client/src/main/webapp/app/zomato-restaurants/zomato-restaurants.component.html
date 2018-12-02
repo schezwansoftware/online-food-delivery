@@ -21,7 +21,7 @@
                 <a class="card-link text-primary">{{restaurant.restaurant.user_rating.aggregate_rating}}</a>
             </div>
             <div class="card-footer">
-                <a class="card-link btn text-white btn-success">Select</a>
+                <a class="card-link btn text-white btn-success" [routerLink]="['/confirm-restaurant', restaurant.restaurant.id]" >Select</a>
             </div>
         </div>
     </div>
