@@ -21,12 +21,10 @@ export class ZomatoRestaurantsComponent implements OnInit {
         this.loadRestaurantsFromZomato();
     }
     loadRestaurantsFromZomato() {
-        this.spinner.show();
         this.fetchError = false;
         this.restaurantService.findAllZomatoRestaurants().subscribe(
             res => {
                 this.restaurants = res.restaurants;
-                this.spinner.hide();
             },
             error => {
                 this.fetchError = true;

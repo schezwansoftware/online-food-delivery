@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ZomatoRestaurantService } from '../entities/restaurantService/restaurant/zomato-restaurant.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RestaurantService } from '../entities/restaurantService/restaurant/restaurant.service';
+import { IRestaurantLocation } from '../shared/model/restaurantService/restaurant-location.model';
 
 @Component({
     selector: 'jhi-confirm-restaurant',
@@ -12,7 +14,12 @@ export class ConfirmRestaurantComponent implements OnInit {
     restuarantId: string;
     restaurant: any = {};
 
-    constructor(private zomatoService: ZomatoRestaurantService, private route: ActivatedRoute) {
+    constructor(
+        private zomatoService: ZomatoRestaurantService,
+        private restaurantService: RestaurantService,
+        private route: ActivatedRoute,
+        private router: Router
+    ) {
         this.message = 'ConfirmRestaurantComponent message';
     }
 
@@ -31,8 +38,11 @@ export class ConfirmRestaurantComponent implements OnInit {
     }
 
     confirm() {
-        this.zomatoService.mapToRestaurant(this.restaurant).subscribe(res => {
-            console.log(res);
+        this.zomatoService.mapToRestaurant(this.restaurant).subscribe((res: IRestaurantLocation) => {
+            this.restaurantService.saveRestaurant(res).subscribe(() => {
+                alert('restaurant saved');
+                this.router.navigate(['']);
+            });
         });
     }
 }
