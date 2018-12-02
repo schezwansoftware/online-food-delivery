@@ -7,6 +7,8 @@ import { VERSION } from 'app/app.constants';
 import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from 'app/core';
 import { ProfileService } from '../profiles/profile.service';
 import { RestaurantService } from '../../entities/restaurantService/restaurant/restaurant.service';
+import { HttpResponse } from '@angular/common/http';
+import { IRestaurant } from '../../shared/model/restaurantService/restaurant.model';
 
 @Component({
     selector: 'jhi-navbar',
@@ -49,8 +51,8 @@ export class NavbarComponent implements OnInit {
             this.principal.hasAnyAuthority(['ROLE_RESTAURANT_EXECUTIVE']).then(value => {
                 if (value) {
                     this.restaurantService.findByLogin().subscribe(
-                        res => {
-                            this.router.navigate(['']);
+                        (res: HttpResponse<IRestaurant>) => {
+                            this.router.navigate(['restaurant', res.body.id, 'view']);
                         },
                         error => {
                             this.router.navigate(['restaurant/new']);
