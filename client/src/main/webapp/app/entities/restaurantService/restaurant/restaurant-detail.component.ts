@@ -12,7 +12,7 @@ import { ILocation } from '../../../shared/model/restaurantService/location.mode
 })
 export class RestaurantDetailComponent implements OnInit {
     restaurant: IRestaurant;
-    location: ILocation;
+    location: ILocation = {};
 
     constructor(private activatedRoute: ActivatedRoute, private locationService: LocationService) {}
 
