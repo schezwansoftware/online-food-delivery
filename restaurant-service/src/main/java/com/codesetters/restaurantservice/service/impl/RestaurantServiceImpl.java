@@ -120,17 +120,14 @@ public class RestaurantServiceImpl implements RestaurantService {
         locationDTO.setLongitude(restLocationDTO.getLongitude());
         locationDTO.setLocality(restLocationDTO.getLocality());
         locationDTO.setId(UUID.randomUUID());
-        RestaurantDTO saverestaurantDTO = this.save(restaurantDTO);
+
         LocationDTO savelocationDTO = new LocationDTO();
-        if (saverestaurantDTO != null) {
-            savelocationDTO = locationService.save(locationDTO);
-        }
-        if (savelocationDTO.equals(null)) {
-            restaurantRepository.deleteById(restaurantDTO.getId());
-            return null;
-        }
 
+        savelocationDTO = locationService.save(locationDTO);
+        if(savelocationDTO !=null){
+            restaurantDTO.setLocationId(savelocationDTO.getId());
+            this.save(restaurantDTO);
+        }
         return restLocationDTO;
-
     }
 }
