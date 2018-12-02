@@ -42,7 +42,7 @@ export const restaurantRoute: Routes = [
             restaurant: RestaurantResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER', 'ROLE_RESTAURANT_EXECUTIVE'],
             pageTitle: 'foodClientApp.restaurantServiceRestaurant.home.title'
         },
         canActivate: [UserRouteAccessService]

@@ -11,7 +11,7 @@
                 "question": "Are you sure you want to delete Restaurant {{ id }}?"
             },
             "detail": {
-                "title": "Restaurant"
+                "title": "Restaurant:"
             },
             "name": "Name",
             "locationId": "Location Id",

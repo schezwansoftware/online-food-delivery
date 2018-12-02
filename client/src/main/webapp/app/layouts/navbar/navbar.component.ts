@@ -7,6 +7,8 @@ import { VERSION } from 'app/app.constants';
 import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from 'app/core';
 import { ProfileService } from '../profiles/profile.service';
 import { RestaurantService } from '../../entities/restaurantService/restaurant/restaurant.service';
+import { HttpResponse } from '@angular/common/http';
+import { IRestaurant } from '../../shared/model/restaurantService/restaurant.model';
 
 @Component({
     selector: 'jhi-navbar',
@@ -18,6 +20,7 @@ export class NavbarComponent implements OnInit {
     isNavbarCollapsed: boolean;
     languages: any[];
     swaggerEnabled: boolean;
+    restuarantId: string;
     modalRef: NgbModalRef;
     version: string;
 
@@ -46,18 +49,7 @@ export class NavbarComponent implements OnInit {
         });
 
         this.eventManager.subscribe('authenticationSuccess', () => {
-            this.principal.hasAnyAuthority(['ROLE_RESTAURANT_EXECUTIVE']).then(value => {
-                if (value) {
-                    this.restaurantService.findByLogin().subscribe(
-                        res => {
-                            this.router.navigate(['']);
-                        },
-                        error => {
-                            this.router.navigate(['restaurant/new']);
-                        }
-                    );
-                }
-            });
+            this.loadRestaurantDetails();
         });
     }
 
@@ -89,5 +81,21 @@ export class NavbarComponent implements OnInit {
 
     getImageUrl() {
         return this.isAuthenticated() ? this.principal.getImageUrl() : null;
+    }
+
+    loadRestaurantDetails() {
+        this.principal.hasAnyAuthority(['ROLE_RESTAURANT_EXECUTIVE']).then(value => {
+            if (value) {
+                this.restaurantService.findByLogin().subscribe(
+                    (res: HttpResponse<IRestaurant>) => {
+                        this.restuarantId = res.body.id;
+                        this.router.navigate(['restaurant', this.restuarantId, 'view']);
+                    },
+                    error => {
+                        this.router.navigate(['restaurant/new']);
+                    }
+                );
+            }
+        });
     }
 }
