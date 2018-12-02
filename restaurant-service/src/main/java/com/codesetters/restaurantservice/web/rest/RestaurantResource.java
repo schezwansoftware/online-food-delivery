@@ -1,7 +1,9 @@
 package com.codesetters.restaurantservice.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codesetters.restaurantservice.security.SecurityUtils;
 import com.codesetters.restaurantservice.service.RestaurantService;
+import com.codesetters.restaurantservice.service.dto.RestLocationDTO;
 import com.codesetters.restaurantservice.web.rest.errors.BadRequestAlertException;
 import com.codesetters.restaurantservice.web.rest.util.HeaderUtil;
 import com.codesetters.restaurantservice.service.dto.RestaurantDTO;
@@ -9,6 +11,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -104,6 +107,24 @@ public class RestaurantResource {
         return ResponseUtil.wrapOrNotFound(restaurantDTO);
     }
 
+
+    /**
+     * GET  /restaurants/user : get the "user" restaurant.
+     *
+     * @return the ResponseEntity with status 200 (OK) and with body the restaurantDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/restaurants/user")
+    @Timed
+    public ResponseEntity<RestaurantDTO> getRestaurant() {
+        if (!SecurityUtils.getCurrentUserLogin().isPresent()) {
+            throw new UsernameNotFoundException("User not logged In");
+        }
+        String login = SecurityUtils.getCurrentUserLogin().get();
+        log.debug("REST request to get Restaurant for user : {}", login);
+        Optional<RestaurantDTO> restaurantDTO = restaurantService.findOneByRestaurantExecutive(login);
+        return ResponseUtil.wrapOrNotFound(restaurantDTO);
+    }
+
     /**
      * DELETE  /restaurants/:id : delete the "id" restaurant.
      *
@@ -116,5 +137,16 @@ public class RestaurantResource {
         log.debug("REST request to delete Restaurant : {}", id);
         restaurantService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @PostMapping("/restaurants-location")
+    @Timed
+    public ResponseEntity<RestLocationDTO> createRestaurantAndLocation(@RequestBody RestLocationDTO restLocationDTO) throws URISyntaxException {
+        log.debug("REST request to save Restaurant and Location : {}", restLocationDTO);
+
+        RestLocationDTO result = restaurantService.saveRestLocation(restLocationDTO);
+        return ResponseEntity.created(new URI("/api/restaurants-location/"))
+            .headers(HeaderUtil.createEntityCreationAlert("RestLocation","created"))
+            .body(result);
     }
 }

@@ -1,8 +1,12 @@
 package com.codesetters.restaurantservice.service.impl;
 
+import com.codesetters.restaurantservice.security.SecurityUtils;
+import com.codesetters.restaurantservice.service.LocationService;
 import com.codesetters.restaurantservice.service.RestaurantService;
 import com.codesetters.restaurantservice.domain.Restaurant;
 import com.codesetters.restaurantservice.repository.RestaurantRepository;
+import com.codesetters.restaurantservice.service.dto.LocationDTO;
+import com.codesetters.restaurantservice.service.dto.RestLocationDTO;
 import com.codesetters.restaurantservice.service.dto.RestaurantDTO;
 import com.codesetters.restaurantservice.service.mapper.RestaurantMapper;
 import org.slf4j.Logger;
@@ -10,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -26,10 +31,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
 
+    private final LocationService locationService;
+
     private final RestaurantMapper restaurantMapper;
 
-    public RestaurantServiceImpl(RestaurantRepository restaurantRepository, RestaurantMapper restaurantMapper) {
+    public RestaurantServiceImpl(RestaurantRepository restaurantRepository, LocationService locationService, RestaurantMapper restaurantMapper) {
         this.restaurantRepository = restaurantRepository;
+        this.locationService = locationService;
         this.restaurantMapper = restaurantMapper;
     }
 
@@ -75,6 +83,15 @@ public class RestaurantServiceImpl implements RestaurantService {
             .map(restaurantMapper::toDto);
     }
 
+    @Override
+    public Optional<RestaurantDTO> findOneByRestaurantExecutive(String login) {
+        List<RestaurantDTO> restaurantDTOS = this.findAll().stream().filter(restaurantDTO -> restaurantDTO.getExecutiveLogin().equals(login)).collect(Collectors.toList());
+        if (restaurantDTOS.isEmpty()){
+            return Optional.empty();
+        }
+        return Optional.of(restaurantDTOS.get(0));
+    }
+
     /**
      * Delete the restaurant by id.
      *
@@ -84,5 +101,33 @@ public class RestaurantServiceImpl implements RestaurantService {
     public void delete(UUID id) {
         log.debug("Request to delete Restaurant : {}", id);
         restaurantRepository.deleteById(id);
+    }
+
+    @Override
+    public RestLocationDTO saveRestLocation(RestLocationDTO restLocationDTO) {
+        RestaurantDTO restaurantDTO = new RestaurantDTO();
+        LocationDTO locationDTO = new LocationDTO();
+
+        restaurantDTO.setCuisineTypes(restLocationDTO.getCuisineTypes());
+        restaurantDTO.setExecutiveLogin(SecurityUtils.getCurrentUserLogin().get());
+        restaurantDTO.setId(UUID.randomUUID());
+        restaurantDTO.setName(restLocationDTO.getName());
+        restaurantDTO.setRegistrationDate(ZonedDateTime.now());
+
+        locationDTO.setAddress(restLocationDTO.getAddress());
+        locationDTO.setPincode(restLocationDTO.getPincode());
+        locationDTO.setLatitude(restLocationDTO.getLatitude());
+        locationDTO.setLongitude(restLocationDTO.getLongitude());
+        locationDTO.setLocality(restLocationDTO.getLocality());
+        locationDTO.setId(UUID.randomUUID());
+
+        LocationDTO savelocationDTO = new LocationDTO();
+
+        savelocationDTO = locationService.save(locationDTO);
+        if(savelocationDTO !=null){
+            restaurantDTO.setLocationId(savelocationDTO.getId());
+            this.save(restaurantDTO);
+        }
+        return restLocationDTO;
     }
 }

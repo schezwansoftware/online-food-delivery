@@ -4,3 +4,4 @@ export * from './restaurant-delete-dialog.component';
 export * from './restaurant-detail.component';
 export * from './restaurant.component';
 export * from './restaurant.route';
+export * from './zomato-restaurant.service';

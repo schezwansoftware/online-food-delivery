@@ -1,5 +1,6 @@
 package com.codesetters.restaurantservice.service;
 
+import com.codesetters.restaurantservice.service.dto.RestLocationDTO;
 import com.codesetters.restaurantservice.service.dto.RestaurantDTO;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public interface RestaurantService {
      */
     RestaurantDTO save(RestaurantDTO restaurantDTO);
 
+    RestLocationDTO saveRestLocation(RestLocationDTO restLocationDTO);
+
     /**
      * Get all the restaurants.
      *
@@ -34,6 +37,8 @@ public interface RestaurantService {
      * @return the entity
      */
     Optional<RestaurantDTO> findOne(UUID id);
+
+    Optional<RestaurantDTO> findOneByRestaurantExecutive(String login);
 
     /**
      * Delete the "id" restaurant.

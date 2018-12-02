@@ -1,0 +1,26 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "restaurantId",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "startDate",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "endDate",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20181127080114",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "menu",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "microserviceName": "restaurantService",
+    "searchEngine": false
+}

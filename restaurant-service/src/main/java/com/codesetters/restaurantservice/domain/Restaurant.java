@@ -6,6 +6,7 @@ import org.springframework.data.cassandra.core.mapping.Table;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -19,7 +20,7 @@ public class Restaurant implements Serializable {
     @Id
     private UUID id;
 
-    private String cuisineTypes;
+    private Set<String> cuisineTypes;
 
     private UUID currentMenuId;
 
@@ -40,16 +41,16 @@ public class Restaurant implements Serializable {
         this.id = id;
     }
 
-    public String getCuisineTypes() {
+    public Set<String> getCuisineTypes() {
         return cuisineTypes;
     }
 
-    public Restaurant cuisineTypes(String cuisineTypes) {
+    public Restaurant cuisineTypes(Set<String> cuisineTypes) {
         this.cuisineTypes = cuisineTypes;
         return this;
     }
 
-    public void setCuisineTypes(String cuisineTypes) {
+    public void setCuisineTypes(Set<String> cuisineTypes) {
         this.cuisineTypes = cuisineTypes;
     }
 

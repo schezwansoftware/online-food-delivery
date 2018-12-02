@@ -1,0 +1,29 @@
+
+{
+    "foodClientApp": {
+        "restaurantServiceDishes" : {
+            "home": {
+                "title": "Dishes",
+                "createLabel": "Create a new Dishes",
+                "createOrEditLabel": "Create or edit a Dishes"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Dishes {{ id }}?"
+            },
+            "detail": {
+                "title": "Dishes"
+            },
+            "menuId": "Menu Id",
+            "dishName": "Dish Name",
+            "dishType": "Dish Type",
+            "dishPrice": "Dish Price"
+        }
+    },
+    "restaurantServiceApp": {
+        "restaurantServiceDishes" : {
+            "created": "A new Dishes is created with identifier {{ param }}",
+            "updated": "A Dishes is updated with identifier {{ param }}",
+            "deleted": "A Dishes is deleted with identifier {{ param }}"
+        }
+    }
+}

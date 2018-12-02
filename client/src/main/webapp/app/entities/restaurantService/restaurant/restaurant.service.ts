@@ -1,13 +1,14 @@
+///<reference path="../../../../../../../node_modules/@angular/common/http/src/response.d.ts"/>
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import * as moment from 'moment';
-import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IRestaurant } from 'app/shared/model/restaurantService/restaurant.model';
+import { IRestaurantLocation } from '../../../shared/model/restaurantService/restaurant-location.model';
 
 type EntityResponseType = HttpResponse<IRestaurant>;
 type EntityArrayResponseType = HttpResponse<IRestaurant[]>;
@@ -15,6 +16,9 @@ type EntityArrayResponseType = HttpResponse<IRestaurant[]>;
 @Injectable({ providedIn: 'root' })
 export class RestaurantService {
     private resourceUrl = SERVER_API_URL + 'restaurantservice/api/restaurants';
+    private restaurantsLocationUrl = SERVER_API_URL + 'restaurantservice/api/restaurants-location';
+    private ZOMATO_API_KEY = 'b1fbbb496c364712fb7dd4829003902d';
+    private ZOMATO_RESTAURANT_SEARCH_URL = 'https://developers.zomato.com/api/v2.1/search';
 
     constructor(private http: HttpClient) {}
 
@@ -38,17 +42,40 @@ export class RestaurantService {
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
+    findByLogin(): Observable<EntityResponseType> {
+        return this.http
+            .get<IRestaurant>(`${this.resourceUrl}/user`, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
+
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http
             .get<IRestaurant[]>(this.resourceUrl, { params: options, observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
-
     delete(id: string): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
+    cuisineTypes(): Observable<string[]> {
+        return of(['Chinese', 'South-Indian', 'North-Indian', 'Continental']);
+    }
+
+    saveRestaurant(restaurant: IRestaurantLocation): Observable<EntityResponseType> {
+        return this.http.post<IRestaurant>(this.restaurantsLocationUrl, restaurant, { observe: 'response' });
+    }
+
+    findAllZomatoRestaurants(): Observable<any> {
+        const headers = new HttpHeaders({ 'user-key': this.ZOMATO_API_KEY });
+        return this.http.get<any>(this.ZOMATO_RESTAURANT_SEARCH_URL, { headers });
+    }
+
+    customZomatoSearch(q: string) {
+        const params = new HttpParams().set('q', q);
+        const headers = new HttpHeaders({ 'user-key': this.ZOMATO_API_KEY });
+        return this.http.get<any>(this.ZOMATO_RESTAURANT_SEARCH_URL, { headers, params });
+    }
     private convertDateFromClient(restaurant: IRestaurant): IRestaurant {
         const copy: IRestaurant = Object.assign({}, restaurant, {
             registrationDate:

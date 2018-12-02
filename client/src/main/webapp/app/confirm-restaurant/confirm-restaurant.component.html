@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div>
+            <dl class="row-md jh-entity-details">
+                <dt><span >Name</span></dt>
+                <dd>
+                    <span>{{restaurant.name}}</span>
+                </dd>
+                <dt><span >Locality</span></dt>
+                <dd>
+                    <span>{{restaurant.location.locality_verbose}}</span>
+                </dd>
+                <dt><span>Address</span></dt>
+                <dd>
+                    <span>{{restaurant.location.address}}</span>
+                </dd>
+                <dt><span >Cuisine Types</span></dt>
+                <dd>
+                    <span>{{restaurant.cuisines}}</span>
+                </dd>
+                <dt><span >City</span></dt>
+                <dd>
+                    <span>{{restaurant.location.city}}</span>
+                </dd>
+                <dt><span >Zip Code</span></dt>
+                <dd>
+                    <span>{{restaurant.location.zipcode}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    routerLink="/zomato-restaurants"
+                    class="btn btn-danger">
+                Discard
+            </button>
+
+            <button type="button"
+                    class="btn btn-primary" (click)="confirm()">
+                Confirm
+            </button>
+        </div>
+    </div>
+</div>

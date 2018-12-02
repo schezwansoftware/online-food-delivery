@@ -4,11 +4,14 @@
         "browsehappy": "आप एक <strong>पुराने</strong> ब्राउज़र का उपयोग कर रहे हैं। कृपया अपने अनुभव में सुधार करने के लिए अपने <a href=\"http://browsehappy.com/?locale=en\">ब्राउज़र को अपग्रेड करें</a>",
         "menu": {
             "home": "होम",
+            "zomato-restaurants": "Zomato Restaurants",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "एंटिटीज़",
                 "restaurantServiceRestaurant": "Restaurant",
                 "restaurantServiceLocation": "Location",
+                "restaurantServiceMenu": "Menu",
+                "restaurantServiceDishes": "Dishes",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

@@ -1,7 +1,7 @@
 
 CREATE TABLE IF NOT EXISTS restaurant (
     id uuid,
-    cuisineTypes text,
+    cuisineTypes set<text>,
     currentMenuId uuid,
     executiveLogin text,
     locationId uuid,
