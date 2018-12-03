@@ -26,6 +26,10 @@
         {
             "fieldName": "registrationDate",
             "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "zomatoId",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20181127053608",

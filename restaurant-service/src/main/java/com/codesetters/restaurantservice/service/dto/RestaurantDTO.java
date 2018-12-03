@@ -23,6 +23,8 @@ public class RestaurantDTO implements Serializable {
 
     private String name;
 
+    private String zomatoId;
+
     private ZonedDateTime registrationDate;
 
     public UUID getId() {
@@ -112,6 +114,15 @@ public class RestaurantDTO implements Serializable {
             ", locationId='" + getLocationId() + "'" +
             ", name='" + getName() + "'" +
             ", registrationDate='" + getRegistrationDate() + "'" +
+            ", zomatoId='" + getZomatoId() + "'" +
             "}";
+    }
+
+    public String getZomatoId() {
+        return zomatoId;
+    }
+
+    public void setZomatoId(String zomatoId) {
+        this.zomatoId = zomatoId;
     }
 }

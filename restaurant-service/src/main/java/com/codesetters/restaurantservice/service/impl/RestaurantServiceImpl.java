@@ -125,6 +125,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         savelocationDTO = locationService.save(locationDTO);
         if(savelocationDTO !=null){
             restaurantDTO.setLocationId(savelocationDTO.getId());
+            restaurantDTO.setZomatoId(restLocationDTO.getId());
             this.save(restaurantDTO);
         }
         return restLocationDTO;
