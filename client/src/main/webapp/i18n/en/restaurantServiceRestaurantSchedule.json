@@ -1,0 +1,29 @@
+
+{
+    "foodClientApp": {
+        "restaurantServiceRestaurantSchedule" : {
+            "home": {
+                "title": "Restaurant Schedules",
+                "createLabel": "Create a new Restaurant Schedule",
+                "createOrEditLabel": "Create or edit a Restaurant Schedule"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Restaurant Schedule {{ id }}?"
+            },
+            "detail": {
+                "title": "Restaurant Schedule"
+            },
+            "restaurantId": "Restaurant Id",
+            "day": "Day",
+            "openingTime": "Opening Time",
+            "closingTime": "Closing Time"
+        }
+    },
+    "restaurantServiceApp": {
+        "restaurantServiceRestaurantSchedule" : {
+            "created": "A new Restaurant Schedule is created with identifier {{ param }}",
+            "updated": "A Restaurant Schedule is updated with identifier {{ param }}",
+            "deleted": "A Restaurant Schedule is deleted with identifier {{ param }}"
+        }
+    }
+}

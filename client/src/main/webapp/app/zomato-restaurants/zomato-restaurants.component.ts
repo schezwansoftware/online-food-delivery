@@ -12,19 +12,28 @@ export class ZomatoRestaurantsComponent implements OnInit {
     restaurants: any[];
     search: string;
     fetchError: boolean;
+    page: any;
+    collectionsSize: any;
+    maxSize: number;
+    pageSize: number;
 
     constructor(private restaurantService: RestaurantService, private spinner: NgxSpinnerService) {
         this.message = 'ZomatoRestaurantsComponent message';
     }
 
     ngOnInit() {
-        this.loadRestaurantsFromZomato();
+        this.page = 1;
+        this.maxSize = 10;
+        this.pageSize = 20;
+        this.loadRestaurantsFromZomato(this.page);
     }
-    loadRestaurantsFromZomato() {
+    loadRestaurantsFromZomato(page: number) {
         this.fetchError = false;
-        this.restaurantService.findAllZomatoRestaurants().subscribe(
+        this.restaurantService.findAllZomatoRestaurants(page).subscribe(
             res => {
                 this.restaurants = res.restaurants;
+                console.log(res);
+                this.collectionsSize = res.results_found;
             },
             error => {
                 this.fetchError = true;
@@ -44,5 +53,10 @@ export class ZomatoRestaurantsComponent implements OnInit {
                 this.fetchError = true;
             }
         );
+    }
+
+    onPageChange(page: number) {
+        page = (page - 1) * this.pageSize + 1;
+        this.loadRestaurantsFromZomato(page);
     }
 }

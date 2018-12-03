@@ -1,0 +1,29 @@
+
+{
+    "foodClientApp": {
+        "restaurantServiceRestaurantSchedule" : {
+            "home": {
+                "title": "RestaurantSchedules",
+                "createLabel": "नया Restaurant Schedule बनाएँ",
+                "createOrEditLabel": "Restaurant Schedule बनाएँ या संपादित करें"
+            },
+            "delete": {
+                "question": "Restaurant Schedule [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Restaurant Schedule"
+            },
+            "restaurantId": "Restaurant Id",
+            "day": "Day",
+            "openingTime": "Opening Time",
+            "closingTime": "Closing Time"
+        }
+    },
+    "restaurantServiceApp": {
+        "restaurantServiceRestaurantSchedule" : {
+            "created": "एक नया Restaurant Schedule [identifier: {{ param }}] तैयार है",
+            "updated": "एक Restaurant Schedule [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Restaurant Schedule [identifier: {{ param }}] हटा दिया है"
+        }
+    }
+}
