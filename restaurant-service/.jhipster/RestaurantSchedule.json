@@ -1,0 +1,31 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "restaurantService",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "restaurantId",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "day",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "openingTime",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "closingTime",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20181203091646",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "restaurant_schedule",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "microserviceName": "restaurantService"
+}

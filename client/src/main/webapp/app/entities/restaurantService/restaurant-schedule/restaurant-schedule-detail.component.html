@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="restaurantSchedule">
+            <h2><span jhiTranslate="foodClientApp.restaurantServiceRestaurantSchedule.detail.title">Restaurant Schedule</span> {{restaurantSchedule.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="foodClientApp.restaurantServiceRestaurantSchedule.restaurantId">Restaurant Id</span></dt>
+                <dd>
+                    <span>{{restaurantSchedule.restaurantId}}</span>
+                </dd>
+                <dt><span jhiTranslate="foodClientApp.restaurantServiceRestaurantSchedule.day">Day</span></dt>
+                <dd>
+                    <span>{{restaurantSchedule.day}}</span>
+                </dd>
+                <dt><span jhiTranslate="foodClientApp.restaurantServiceRestaurantSchedule.openingTime">Opening Time</span></dt>
+                <dd>
+                    <span>{{restaurantSchedule.openingTime}}</span>
+                </dd>
+                <dt><span jhiTranslate="foodClientApp.restaurantServiceRestaurantSchedule.closingTime">Closing Time</span></dt>
+                <dd>
+                    <span>{{restaurantSchedule.closingTime}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/restaurant-schedule', restaurantSchedule.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
