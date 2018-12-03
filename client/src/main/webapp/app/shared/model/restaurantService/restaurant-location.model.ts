@@ -1,5 +1,6 @@
 export interface IRestaurantLocation {
     name?: string;
+    id?: string;
     cuisineTypes?: string[];
     locality?: string;
     longitude?: number;
@@ -11,6 +12,7 @@ export interface IRestaurantLocation {
 export class RestaurantLocation implements IRestaurantLocation {
     constructor(
         public name?: string,
+        public id?: string,
         public cuisineTypes?: string[],
         public locality?: string,
         public longitude?: number,

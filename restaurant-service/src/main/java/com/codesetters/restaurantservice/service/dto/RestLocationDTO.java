@@ -11,7 +11,7 @@ import java.util.UUID;
  */
 public class RestLocationDTO implements Serializable {
 
-    private UUID id;
+    private String id;
 
     private Set<String> cuisineTypes;
 
@@ -28,13 +28,6 @@ public class RestLocationDTO implements Serializable {
     private String address;
 
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public Set<String> getCuisineTypes() {
         return cuisineTypes;
@@ -127,5 +120,13 @@ public class RestLocationDTO implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

@@ -1,6 +1,6 @@
 ///<reference path="../../../../../../../node_modules/@angular/common/http/src/response.d.ts"/>
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import * as moment from 'moment';
 import { map } from 'rxjs/operators';
@@ -69,6 +69,12 @@ export class RestaurantService {
     findAllZomatoRestaurants(): Observable<any> {
         const headers = new HttpHeaders({ 'user-key': this.ZOMATO_API_KEY });
         return this.http.get<any>(this.ZOMATO_RESTAURANT_SEARCH_URL, { headers });
+    }
+
+    customZomatoSearch(q: string) {
+        const params = new HttpParams().set('q', q);
+        const headers = new HttpHeaders({ 'user-key': this.ZOMATO_API_KEY });
+        return this.http.get<any>(this.ZOMATO_RESTAURANT_SEARCH_URL, { headers, params });
     }
     private convertDateFromClient(restaurant: IRestaurant): IRestaurant {
         const copy: IRestaurant = Object.assign({}, restaurant, {

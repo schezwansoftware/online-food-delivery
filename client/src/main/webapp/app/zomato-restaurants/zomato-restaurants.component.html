@@ -1,3 +1,16 @@
+<div class="row">
+    <div class="col-md-10">
+        <input type="text" class="form-control" name="search" [(ngModel)]="search" placeholder="Search by Restaurant or City">
+    </div>
+    <button type="button" (click)="cutsomSearch()" class="btn btn-secondary col-md-1">Search</button>
+</div>
+<br>
+<br>
+
+<div *ngIf="fetchError" class="alert alert-dismissible alert-danger">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Snap!! SOmething went wrong</strong> <a (click)="cutsomSearch()" class="alert-link">Click here to Retry.</a>
+</div>
 <div class="row card-group">
     <div class="col-3" *ngFor="let restaurant of restaurants">
         <div class="card border-secondary mb-3" style="max-width: 20rem;">
@@ -6,6 +19,9 @@
                 <p class="card-text">{{restaurant.restaurant.location.address}}</p>
                 <a class="card-link text-primary">{{restaurant.restaurant.location.city}}</a>
                 <a class="card-link text-primary">{{restaurant.restaurant.user_rating.aggregate_rating}}</a>
+            </div>
+            <div class="card-footer">
+                <a class="card-link btn text-white btn-success" [routerLink]="['/confirm-restaurant', restaurant.restaurant.id]" >Select</a>
             </div>
         </div>
     </div>

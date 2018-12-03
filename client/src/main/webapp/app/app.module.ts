@@ -18,20 +18,24 @@ import { FoodClientAccountModule } from './account/account.module';
 import { FoodClientEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 import { FoodClientAppZomatoRestaurantsModule } from './zomato-restaurants/zomato-restaurants.module';
+import { FoodClientAppConfirmRestaurantModule } from './confirm-restaurant/confirm-restaurant.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
     imports: [
         BrowserModule,
         FoodClientAppRoutingModule,
+        NgxSpinnerModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
         FoodClientSharedModule,
         FoodClientCoreModule,
         FoodClientHomeModule,
         FoodClientAccountModule,
         FoodClientEntityModule,
-        FoodClientAppZomatoRestaurantsModule
+        FoodClientAppZomatoRestaurantsModule,
+        FoodClientAppConfirmRestaurantModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
