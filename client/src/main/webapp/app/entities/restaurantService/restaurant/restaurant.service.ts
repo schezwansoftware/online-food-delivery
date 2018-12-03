@@ -66,9 +66,10 @@ export class RestaurantService {
         return this.http.post<IRestaurant>(this.restaurantsLocationUrl, restaurant, { observe: 'response' });
     }
 
-    findAllZomatoRestaurants(): Observable<any> {
+    findAllZomatoRestaurants(start: number): Observable<any> {
         const headers = new HttpHeaders({ 'user-key': this.ZOMATO_API_KEY });
-        return this.http.get<any>(this.ZOMATO_RESTAURANT_SEARCH_URL, { headers });
+        const params = new HttpParams().set('start', start.toString());
+        return this.http.get<any>(this.ZOMATO_RESTAURANT_SEARCH_URL, { headers, params });
     }
 
     customZomatoSearch(q: string) {

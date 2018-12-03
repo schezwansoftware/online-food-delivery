@@ -12,6 +12,7 @@
                 "restaurantServiceLocation": "Location",
                 "restaurantServiceMenu": "Menu",
                 "restaurantServiceDishes": "Dishes",
+                "restaurantServiceRestaurantSchedule": "Restaurant Schedule",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

@@ -25,5 +25,7 @@
             </div>
         </div>
     </div>
+
+    <ngb-pagination [collectionSize]="collectionsSize" [(page)]="page" [maxSize]="maxSize" [pageSize]="pageSize" (pageChange)="onPageChange(page)" [boundaryLinks]="true"></ngb-pagination>
 </div>
 
