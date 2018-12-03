@@ -32,6 +32,8 @@ public class Restaurant implements Serializable {
 
     private ZonedDateTime registrationDate;
 
+    private String zomatoId;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public UUID getId() {
         return id;
@@ -150,6 +152,15 @@ public class Restaurant implements Serializable {
             ", locationId='" + getLocationId() + "'" +
             ", name='" + getName() + "'" +
             ", registrationDate='" + getRegistrationDate() + "'" +
+            ", zomatoId='" + getZomatoId() + "'" +
             "}";
+    }
+
+    public String getZomatoId() {
+        return zomatoId;
+    }
+
+    public void setZomatoId(String zomatoId) {
+        this.zomatoId = zomatoId;
     }
 }

@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS restaurant (
     locationId uuid,
     name text,
     registrationDate tuple<timestamp,varchar>,
+     zomatoId text,
     PRIMARY KEY(id)
 );

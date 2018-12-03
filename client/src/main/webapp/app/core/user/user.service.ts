@@ -34,6 +34,6 @@ export class UserService {
     }
 
     authorities(): Observable<string[]> {
-        return of(['ROLE_USER', 'ROLE_ADMIN']);
+        return of(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_RESTAURENT_EXECUTIVE']);
     }
 }

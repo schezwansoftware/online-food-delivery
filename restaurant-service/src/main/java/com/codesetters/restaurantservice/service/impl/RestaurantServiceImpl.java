@@ -122,10 +122,10 @@ public class RestaurantServiceImpl implements RestaurantService {
         locationDTO.setId(UUID.randomUUID());
 
         LocationDTO savelocationDTO = new LocationDTO();
-
         savelocationDTO = locationService.save(locationDTO);
         if(savelocationDTO !=null){
             restaurantDTO.setLocationId(savelocationDTO.getId());
+            restaurantDTO.setZomatoId(restLocationDTO.getId());
             this.save(restaurantDTO);
         }
         return restLocationDTO;
