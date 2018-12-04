@@ -4,30 +4,14 @@
             <h2>Enter Menu Date</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <!--<div class="form-group" [hidden]="!menu.id">-->
-                    <!--<label for="id" jhiTranslate="global.field.id">ID</label>-->
-                    <!--<input type="text" class="form-control" id="id" name="id"-->
-                        <!--[(ngModel)]="menu.id" readonly />-->
-                <!--</div>-->
-                <!--<div class="form-group">-->
-                    <!--<label class="form-control-label" jhiTranslate="foodClientApp.restaurantServiceMenu.restaurantId" for="field_restaurantId">Restaurant Id</label>-->
-                    <!--<input type="text" class="form-control" name="restaurantId" id="field_restaurantId"-->
-                        <!--[(ngModel)]="menu.restaurantId" />-->
-                <!--</div>-->
-                <!--<div class="form-group">-->
-                    <!--<label class="form-control-label" jhiTranslate="foodClientApp.restaurantServiceMenu.startDate" for="field_startDate">Start Date</label>-->
-                    <!--<div class="d-flex">-->
-                        <!--<input id="field_startDate" type="datetime-local" class="form-control" name="startDate" [(ngModel)]="startDate"-->
-                        <!--/>-->
-                    <!--</div>-->
-                <!--</div>-->
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="foodClientApp.restaurantServiceMenu.endDate" for="field_endDate">End Date</label>
                     <div class="d-flex">
-                        <input id="field_endDate" type="datetime-local" class="form-control" name="endDate" [(ngModel)]="menuItem.endDate"
+                        <input id="field_endDate" type="date" class="form-control" name="endDate" [(ngModel)]="menuItem.date"
                         />
                     </div>
                 </div>
+                {{menuItem.date}}
 
                 <h5>Enter Dishes For this Menu </h5><br/>
 
