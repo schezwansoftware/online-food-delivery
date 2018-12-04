@@ -28,12 +28,8 @@ export class MenuService {
     }
 
     saveMenuItem(menu: IMenuItem): Observable<EntityResponseType> {
-        console.log(menu);
-        const copy = this.convertendDateFromClient(menu);
-
-        return this.http
-            .post<IMenuItem>(this.menuItemUrl, copy, { observe: 'response' })
-            .pipe(map((res: EntityResponseType) => this.convertendDateFromServer(res)));
+        console.log(menu.date);
+        return this.http.post<IMenuItem>(this.menuItemUrl, menu, { observe: 'response' });
     }
 
     update(menu: IMenu): Observable<EntityResponseType> {
@@ -68,20 +64,8 @@ export class MenuService {
         return copy;
     }
 
-    private convertendDateFromClient(menu: IMenuItem): IMenuItem {
-        const copy: IMenuItem = Object.assign({}, menu, {
-            endDate: menu.endDate != null && menu.endDate.isValid() ? menu.endDate.toJSON() : null
-        });
-        return copy;
-    }
-
     private convertDateFromServer(res: EntityResponseType): EntityResponseType {
         res.body.startDate = res.body.startDate != null ? moment(res.body.startDate) : null;
-        res.body.endDate = res.body.endDate != null ? moment(res.body.endDate) : null;
-        return res;
-    }
-
-    private convertendDateFromServer(res: EntityResponseType): EntityResponseType {
         res.body.endDate = res.body.endDate != null ? moment(res.body.endDate) : null;
         return res;
     }

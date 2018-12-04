@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
@@ -22,7 +22,7 @@ export class MenuUpdateComponent implements OnInit {
     menuItem: MenuItemModel = {};
     dish: Dishes = {};
 
-    constructor(private menuService: MenuService, private activatedRoute: ActivatedRoute) {}
+    constructor(private menuService: MenuService, private activatedRoute: ActivatedRoute, private router: Router) {}
 
     ngOnInit() {
         this.menuItem.dishes = [];
@@ -75,8 +75,9 @@ export class MenuUpdateComponent implements OnInit {
         this.menuItem.restaurantId = this.activatedRoute.snapshot.paramMap.get('restaurantId');
         this.menuService.saveMenuItem(this.menuItem).subscribe(
             res => {
+                alert(res.body);
                 console.log(res.body);
-                this.menuItem = {};
+                this.router.navigate(['/restaurant', `${res.body.restaurantId}`, 'view']);
             },
             error1 => {
                 console.log(error1);

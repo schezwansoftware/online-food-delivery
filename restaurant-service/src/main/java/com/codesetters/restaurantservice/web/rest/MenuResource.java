@@ -121,7 +121,7 @@ public class MenuResource {
     @PostMapping("/menu-Item")
     @Timed
     public ResponseEntity<MenuItemDto> saveMenuItem(@RequestBody MenuItemDto menuItemDto) throws URISyntaxException {
-        log.debug("Rest request to save menu-item",menuItemDto);
+        log.debug("Rest request to save menu-item",menuItemDto.getDate());
        MenuItemDto result= menuService.saveMenuItem(menuItemDto);
         return ResponseEntity.created(new URI("/api/menu-item/" + result.getRestaurantId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getRestaurantId().toString()))

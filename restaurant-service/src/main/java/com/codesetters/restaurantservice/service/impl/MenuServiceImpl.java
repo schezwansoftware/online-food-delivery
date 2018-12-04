@@ -13,7 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -95,8 +97,13 @@ public class MenuServiceImpl implements MenuService{
     @Override
     public MenuItemDto saveMenuItem(MenuItemDto menuItemDto){
         Menu menu=new Menu();
+
+            Date date1=menuItemDto.getDate();
+            menu.setEndDate(ZonedDateTime.ofInstant(date1.toInstant(), ZoneId.systemDefault()));
+
+
+
         menu.setStartDate(ZonedDateTime.now());
-        menu.setEndDate(menuItemDto.getEndDate());
         menu.setId(UUID.randomUUID());
         menu.setRestaurantId(menuItemDto.getRestaurantId());
         Menu savedMenu=menuRepository.save(menu);
