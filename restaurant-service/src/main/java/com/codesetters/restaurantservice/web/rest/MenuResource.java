@@ -1,7 +1,9 @@
 package com.codesetters.restaurantservice.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codesetters.restaurantservice.domain.Dishes;
 import com.codesetters.restaurantservice.service.MenuService;
+import com.codesetters.restaurantservice.service.dto.DishesDTO;
 import com.codesetters.restaurantservice.service.dto.MenuItemDto;
 import com.codesetters.restaurantservice.web.rest.errors.BadRequestAlertException;
 import com.codesetters.restaurantservice.web.rest.util.HeaderUtil;
@@ -135,5 +137,6 @@ public class MenuResource {
         MenuDTO menuDTO = menuService.findByRestaurantId(restaurantId);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(menuDTO));
     }
+
 
 }
