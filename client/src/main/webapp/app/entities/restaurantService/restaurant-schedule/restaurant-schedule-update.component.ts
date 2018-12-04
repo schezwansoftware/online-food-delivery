@@ -13,14 +13,17 @@ import { RestaurantScheduleService } from './restaurant-schedule.service';
 export class RestaurantScheduleUpdateComponent implements OnInit {
     restaurantSchedule: IRestaurantSchedule;
     isSaving: boolean;
+    restaurantId: string;
+    scheduleModel: RestaurantScheduleModel = {
+        restaurantId: null,
+        schedule: []
+    };
 
     constructor(private restaurantScheduleService: RestaurantScheduleService, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ restaurantSchedule }) => {
-            this.restaurantSchedule = restaurantSchedule;
-        });
+        this.activatedRoute.params.subscribe(params => {});
     }
 
     previousState() {
@@ -48,4 +51,9 @@ export class RestaurantScheduleUpdateComponent implements OnInit {
     private onSaveError() {
         this.isSaving = false;
     }
+}
+
+interface RestaurantScheduleModel {
+    restaurantId: string;
+    schedule: IRestaurantSchedule[];
 }
