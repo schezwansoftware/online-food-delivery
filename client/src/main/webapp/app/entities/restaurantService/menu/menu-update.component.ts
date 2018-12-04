@@ -7,6 +7,8 @@ import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 
 import { IMenu } from 'app/shared/model/restaurantService/menu.model';
 import { MenuService } from './menu.service';
+import { IMenuItem, MenuItemModel } from 'app/shared/model/restaurantService/menu-Item.model';
+import { Dishes } from 'app/shared/model/restaurantService/dishes.model';
 
 @Component({
     selector: 'jhi-menu-update',
@@ -17,10 +19,13 @@ export class MenuUpdateComponent implements OnInit {
     isSaving: boolean;
     startDate: string;
     endDate: string;
+    menuItem: MenuItemModel = {};
+    dish: Dishes = {};
 
     constructor(private menuService: MenuService, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
+        this.menuItem.dishes = [];
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ menu }) => {
             this.menu = menu;
@@ -55,5 +60,27 @@ export class MenuUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
+    }
+
+    addDish() {
+        this.menuItem.dishes.push(this.dish);
+        this.dish = {};
+    }
+
+    removeDish(dish) {
+        this.menuItem.dishes.splice(dish, 1);
+    }
+
+    saveMenuDishes() {
+        this.menuItem.restaurantId = this.activatedRoute.snapshot.paramMap.get('restaurantId');
+        this.menuService.saveMenuItem(this.menuItem).subscribe(
+            res => {
+                console.log(res.body);
+                this.menuItem = {};
+            },
+            error1 => {
+                console.log(error1);
+            }
+        );
     }
 }

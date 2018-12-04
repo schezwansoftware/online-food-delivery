@@ -2,6 +2,7 @@ package com.codesetters.restaurantservice.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.codesetters.restaurantservice.service.MenuService;
+import com.codesetters.restaurantservice.service.dto.MenuItemDto;
 import com.codesetters.restaurantservice.web.rest.errors.BadRequestAlertException;
 import com.codesetters.restaurantservice.web.rest.util.HeaderUtil;
 import com.codesetters.restaurantservice.service.dto.MenuDTO;
@@ -115,5 +116,15 @@ public class MenuResource {
         log.debug("REST request to delete Menu : {}", id);
         menuService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
+    }
+
+    @PostMapping("/menu-Item")
+    @Timed
+    public ResponseEntity<MenuItemDto> saveMenuItem(@RequestBody MenuItemDto menuItemDto) throws URISyntaxException {
+        log.debug("Rest request to save menu-item",menuItemDto);
+       MenuItemDto result= menuService.saveMenuItem(menuItemDto);
+        return ResponseEntity.created(new URI("/api/menu-item/" + result.getRestaurantId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getRestaurantId().toString()))
+            .body(result);
     }
 }
