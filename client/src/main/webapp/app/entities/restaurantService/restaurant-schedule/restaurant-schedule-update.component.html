@@ -43,8 +43,13 @@
                     <label class="form-control-label" for="field_closingTime">Closing Time</label>
                     <ngb-timepicker [(ngModel)]="restaurantSchedule.closingTime" id="field_closingTime" required></ngb-timepicker>
                 </div>
+                <div class="fa-pull-right">
+                    <button class="btn btn-outline-info">Add</button>
+                </div>
 
             </div>
+            <br/>
+
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span >Cancel</span>
