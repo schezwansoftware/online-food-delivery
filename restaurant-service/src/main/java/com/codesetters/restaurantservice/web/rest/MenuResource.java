@@ -127,4 +127,13 @@ public class MenuResource {
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getRestaurantId().toString()))
             .body(result);
     }
+
+    @GetMapping("/menu-Item/{restaurantId}")
+    @Timed
+    public ResponseEntity<MenuDTO> getMenuByRestaurantId(@PathVariable String restaurantId) {
+        log.debug("REST request to get Menu : {}", restaurantId);
+        MenuDTO menuDTO = menuService.findByRestaurantId(restaurantId);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(menuDTO));
+    }
+
 }

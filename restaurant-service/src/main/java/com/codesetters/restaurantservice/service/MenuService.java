@@ -20,6 +20,8 @@ public interface MenuService {
 
     MenuItemDto saveMenuItem(MenuItemDto menuDTO);
 
+    MenuDTO findByRestaurantId(String restaurantId);
+
     /**
      *  Get all the menus.
      *
