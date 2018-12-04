@@ -5,15 +5,19 @@ import { Observable } from 'rxjs';
 
 import { IRestaurantSchedule } from 'app/shared/model/restaurantService/restaurant-schedule.model';
 import { RestaurantScheduleService } from './restaurant-schedule.service';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
     selector: 'jhi-restaurant-schedule-update',
     templateUrl: './restaurant-schedule-update.component.html'
 })
 export class RestaurantScheduleUpdateComponent implements OnInit {
-    restaurantSchedule: IRestaurantSchedule;
+    restaurantSchedule: IRestaurantSchedule = {};
     isSaving: boolean;
+    days: any = {};
     restaurantId: string;
+    openingTime: string;
+    closingTime: string;
     scheduleModel: RestaurantScheduleModel = {
         restaurantId: null,
         schedule: []
@@ -23,7 +27,9 @@ export class RestaurantScheduleUpdateComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.params.subscribe(params => {});
+        this.activatedRoute.params.subscribe(params => {
+            this.restaurantId = params.restaurantId;
+        });
     }
 
     previousState() {
@@ -32,11 +38,7 @@ export class RestaurantScheduleUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        if (this.restaurantSchedule.id !== undefined) {
-            this.subscribeToSaveResponse(this.restaurantScheduleService.update(this.restaurantSchedule));
-        } else {
-            this.subscribeToSaveResponse(this.restaurantScheduleService.create(this.restaurantSchedule));
-        }
+        this.scheduleModel.restaurantId = this.restaurantId;
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IRestaurantSchedule>>) {
@@ -50,6 +52,36 @@ export class RestaurantScheduleUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
+    }
+
+    addSchedule() {
+        Object.entries(this.days).forEach(([key, value]) => {
+            if (value) {
+                const schedule = this.getScheduleByDay(key);
+                if (schedule.length > 0) {
+                    schedule[0].closingTime = this.closingTime;
+                    schedule[0].openingTime = this.openingTime;
+                    this.restaurantSchedule = {};
+                    return;
+                }
+                this.restaurantSchedule.day = key;
+                this.restaurantSchedule.openingTime = this.openingTime;
+                this.restaurantSchedule.closingTime = this.closingTime;
+                this.scheduleModel.schedule.push(this.restaurantSchedule);
+                this.restaurantSchedule = {};
+            }
+        });
+        this.openingTime = null;
+        this.closingTime = null;
+        this.days = {};
+    }
+
+    removeSchedule(schedule: IRestaurantSchedule) {
+        this.scheduleModel.schedule.splice(schedule, 1);
+    }
+
+    private getScheduleByDay(day) {
+        return this.scheduleModel.schedule.filter(x => x.day === day);
     }
 }
 

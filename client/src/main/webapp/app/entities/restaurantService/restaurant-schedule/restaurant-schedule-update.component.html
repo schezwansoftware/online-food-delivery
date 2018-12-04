@@ -7,54 +7,83 @@
                 <jhi-alert-error></jhi-alert-error>
                 <div class="row form-group">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="Monday" value="option1">
+                        <input class="form-check-input" [(ngModel)]="days.Monday" name="Monday" type="checkbox" id="Monday" value="Monday">
                         <label class="form-check-label" for="Monday">Monday</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="Tuesday" value="option2">
+                        <input class="form-check-input" [(ngModel)]="days.Tuesday" name="Tuesday" type="checkbox" id="Tuesday" value="Tuesday">
                         <label class="form-check-label" for="Tuesday">Tuesday</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="Wednesday" value="option3">
+                        <input class="form-check-input" [(ngModel)]="days.Wednesday" name="Wednesday" type="checkbox" id="Wednesday" value="Wednesday">
                         <label class="form-check-label" for="Wednesday">Wednesday </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="Thursday" value="option3">
+                        <input class="form-check-input" [(ngModel)]="days.Thursday" name="Thursday" type="checkbox" id="Thursday" value="Thursday">
                         <label class="form-check-label" for="Thursday">Thursday </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="Friday" value="option3">
+                        <input class="form-check-input" [(ngModel)]="days.Friday" name="Friday" type="checkbox" id="Friday" value="Friday">
                         <label class="form-check-label" for="Friday">Friday </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="Saturday" value="option3">
+                        <input class="form-check-input" [(ngModel)]="days.Saturday" name="Saturday" type="checkbox" id="Saturday" value="Saturday">
                         <label class="form-check-label" for="Saturday">Saturday </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="Sunday" value="option3">
+                        <input class="form-check-input" [(ngModel)]="days.Sunday" name="Sunday" type="checkbox" id="Sunday" value="Sunday">
                         <label class="form-check-label" for="Sunday">Sunday </label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_openingTime">Opening Time</label>
-                    <ngb-timepicker [(ngModel)]="restaurantSchedule.openingTime" id="field_openingTime" required></ngb-timepicker>
+                    <input type="time" class="form-control" name="openingTime" [(ngModel)]="openingTime" id="field_openingTime" required>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_closingTime">Closing Time</label>
-                    <ngb-timepicker [(ngModel)]="restaurantSchedule.closingTime" id="field_closingTime" required></ngb-timepicker>
+                    <input type="time" class="form-control" name="closingTime" [(ngModel)]="closingTime" id="field_closingTime" required>
                 </div>
                 <div class="fa-pull-right">
-                    <button class="btn btn-outline-info">Add</button>
+                    <button type="button" class="btn btn-info" [disabled]="editForm.form.invalid" (click)="addSchedule(editForm)">Add</button>
                 </div>
 
             </div>
             <br/>
 
+            <div *ngIf="scheduleModel.schedule.length!== 0">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th><span>Day</span></th>
+                            <th><span>Opening Time</span></th>
+                            <th><span>Closing Time</span></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let schedule of scheduleModel.schedule">
+                            <td>{{schedule.day}}</td>
+                            <td>{{schedule.openingTime}}</td>
+                            <td>{{schedule.closingTime}}</td>
+                            <td class="text-right">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="button" (click)="removeSchedule(schedule)"
+                                            class="btn btn-outline-info btn-sm">
+                                        <span class="d-none d-md-inline">Remove</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span >Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="scheduleModel.schedule.length === 0" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
                 </button>
             </div>
