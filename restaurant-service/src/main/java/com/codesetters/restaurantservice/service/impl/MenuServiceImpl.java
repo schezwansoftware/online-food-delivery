@@ -1,14 +1,19 @@
 package com.codesetters.restaurantservice.service.impl;
 
+import com.codesetters.restaurantservice.repository.DishesRepository;
 import com.codesetters.restaurantservice.service.MenuService;
 import com.codesetters.restaurantservice.domain.Menu;
 import com.codesetters.restaurantservice.repository.MenuRepository;
+import com.codesetters.restaurantservice.service.dto.DishesDTO;
 import com.codesetters.restaurantservice.service.dto.MenuDTO;
+import com.codesetters.restaurantservice.service.dto.MenuItemDto;
+import com.codesetters.restaurantservice.service.mapper.DishesMapper;
 import com.codesetters.restaurantservice.service.mapper.MenuMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -24,10 +29,15 @@ public class MenuServiceImpl implements MenuService{
 
     private final MenuRepository menuRepository;
 
+    private final DishesRepository dishesRepository;
+    private final DishesMapper dishesMapper;
+
     private final MenuMapper menuMapper;
 
-    public MenuServiceImpl(MenuRepository menuRepository, MenuMapper menuMapper) {
+    public MenuServiceImpl(MenuRepository menuRepository, DishesRepository dishesRepository, DishesMapper dishesMapper, MenuMapper menuMapper) {
         this.menuRepository = menuRepository;
+        this.dishesRepository = dishesRepository;
+        this.dishesMapper = dishesMapper;
         this.menuMapper = menuMapper;
     }
 
@@ -80,5 +90,23 @@ public class MenuServiceImpl implements MenuService{
     public void delete(String id) {
         log.debug("Request to delete Menu : {}", id);
         menuRepository.delete(UUID.fromString(id));
+    }
+
+    @Override
+    public MenuItemDto saveMenuItem(MenuItemDto menuItemDto){
+        Menu menu=new Menu();
+        menu.setStartDate(ZonedDateTime.now());
+        menu.setEndDate(menuItemDto.getEndDate());
+        menu.setId(UUID.randomUUID());
+        menu.setRestaurantId(menuItemDto.getRestaurantId());
+        Menu savedMenu=menuRepository.save(menu);
+        if(savedMenu!=null){
+            for (DishesDTO dish: menuItemDto.getDishes()){
+                dish.setMenuId(savedMenu.getId());
+                dish.setId(UUID.randomUUID());
+                dishesRepository.save(dishesMapper.toEntity(dish));
+            }
+        }
+        return menuItemDto;
     }
 }

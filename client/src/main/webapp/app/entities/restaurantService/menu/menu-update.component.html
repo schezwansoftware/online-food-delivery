@@ -1,43 +1,102 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-menu-heading" jhiTranslate="foodClientApp.restaurantServiceMenu.home.createOrEditLabel">Create or edit a Menu</h2>
+        <form name="editForm" role="form" novalidate (ngSubmit)="saveMenuDishes()" #editForm="ngForm">
+            <h2>Enter Menu Date</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!menu.id">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="menu.id" readonly />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="foodClientApp.restaurantServiceMenu.restaurantId" for="field_restaurantId">Restaurant Id</label>
-                    <input type="text" class="form-control" name="restaurantId" id="field_restaurantId"
-                        [(ngModel)]="menu.restaurantId" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="foodClientApp.restaurantServiceMenu.startDate" for="field_startDate">Start Date</label>
-                    <div class="d-flex">
-                        <input id="field_startDate" type="datetime-local" class="form-control" name="startDate" [(ngModel)]="startDate"
-                        />
-                    </div>
-                </div>
+                <!--<div class="form-group" [hidden]="!menu.id">-->
+                    <!--<label for="id" jhiTranslate="global.field.id">ID</label>-->
+                    <!--<input type="text" class="form-control" id="id" name="id"-->
+                        <!--[(ngModel)]="menu.id" readonly />-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" jhiTranslate="foodClientApp.restaurantServiceMenu.restaurantId" for="field_restaurantId">Restaurant Id</label>-->
+                    <!--<input type="text" class="form-control" name="restaurantId" id="field_restaurantId"-->
+                        <!--[(ngModel)]="menu.restaurantId" />-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" jhiTranslate="foodClientApp.restaurantServiceMenu.startDate" for="field_startDate">Start Date</label>-->
+                    <!--<div class="d-flex">-->
+                        <!--<input id="field_startDate" type="datetime-local" class="form-control" name="startDate" [(ngModel)]="startDate"-->
+                        <!--/>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="foodClientApp.restaurantServiceMenu.endDate" for="field_endDate">End Date</label>
                     <div class="d-flex">
-                        <input id="field_endDate" type="datetime-local" class="form-control" name="endDate" [(ngModel)]="endDate"
+                        <input id="field_endDate" type="datetime-local" class="form-control" name="endDate" [(ngModel)]="menuItem.endDate"
                         />
                     </div>
                 </div>
 
+                <h5>Enter Dishes For this Menu </h5><br/>
+
+                <div class="form-group">
+                    <label class="form-control-label">Dish Name</label>
+                    <input type="text" class="form-control" name="dishName" id="field_dishName"
+                           [(ngModel)]="dish.dishName" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label">Dish Type</label>
+                    <select class="form-control" name="dishType" id="field_dishType" [(ngModel)]="dish.dishType">
+                    <option value="mainCourse">Main Course</option>
+                    <option value="dessert">Desert</option>
+                    <option value="starter">Starter</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label">Dish Price</label>
+                    <input type="number" class="form-control" name="dishPrice" id="field_dishPrice"
+                           [(ngModel)]="dish.dishPrice" />
+                </div>
+
+                <div class="fa-pull-right">
+                    <button type="button" class="btn btn-primary" (click)="addDish()">
+                         Add Dish
+                    </button>
+                </div><br/>
+            </div>
+            <br/>
+
+            <div *ngIf="menuItem.dishes.length!=0">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th><span>Dish Name</span></th>
+                                <th><span>Dish Type</span></th>
+                                <th><span>Dish Price</span></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let dish of menuItem.dishes">
+                                <td>{{dish.dishName}}</td>
+                                <td>{{dish.dishType}}</td>
+                                <td>{{dish.dishPrice}}</td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit" (click)="removeDish(dish)"
+                                                class="btn btn-info btn-sm">
+                                            <span class="d-none d-md-inline">Remove</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;Cancel</span>
                 </button>
                 <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;Save</span>
                 </button>
             </div>
         </form>
     </div>
 </div>
+

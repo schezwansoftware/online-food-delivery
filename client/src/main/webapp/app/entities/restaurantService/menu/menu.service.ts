@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IMenu } from 'app/shared/model/restaurantService/menu.model';
+import { IMenuItem } from 'app/shared/model/restaurantService/menu-Item.model';
 
 type EntityResponseType = HttpResponse<IMenu>;
 type EntityArrayResponseType = HttpResponse<IMenu[]>;
@@ -15,6 +16,7 @@ type EntityArrayResponseType = HttpResponse<IMenu[]>;
 @Injectable({ providedIn: 'root' })
 export class MenuService {
     private resourceUrl = SERVER_API_URL + 'restaurantservice/api/menus';
+    private menuItemUrl = SERVER_API_URL + 'restaurantservice/api/menu-Item';
 
     constructor(private http: HttpClient) {}
 
@@ -23,6 +25,15 @@ export class MenuService {
         return this.http
             .post<IMenu>(this.resourceUrl, copy, { observe: 'response' })
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
+
+    saveMenuItem(menu: IMenuItem): Observable<EntityResponseType> {
+        console.log(menu);
+        const copy = this.convertendDateFromClient(menu);
+
+        return this.http
+            .post<IMenuItem>(this.menuItemUrl, copy, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertendDateFromServer(res)));
     }
 
     update(menu: IMenu): Observable<EntityResponseType> {
@@ -57,8 +68,20 @@ export class MenuService {
         return copy;
     }
 
+    private convertendDateFromClient(menu: IMenuItem): IMenuItem {
+        const copy: IMenuItem = Object.assign({}, menu, {
+            endDate: menu.endDate != null && menu.endDate.isValid() ? menu.endDate.toJSON() : null
+        });
+        return copy;
+    }
+
     private convertDateFromServer(res: EntityResponseType): EntityResponseType {
         res.body.startDate = res.body.startDate != null ? moment(res.body.startDate) : null;
+        res.body.endDate = res.body.endDate != null ? moment(res.body.endDate) : null;
+        return res;
+    }
+
+    private convertendDateFromServer(res: EntityResponseType): EntityResponseType {
         res.body.endDate = res.body.endDate != null ? moment(res.body.endDate) : null;
         return res;
     }

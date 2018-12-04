@@ -5,6 +5,7 @@ import { IRestaurant } from 'app/shared/model/restaurantService/restaurant.model
 import { LocationService } from '../location/location.service';
 import { HttpResponse } from '@angular/common/http';
 import { ILocation } from '../../../shared/model/restaurantService/location.model';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-restaurant-detail',
@@ -14,7 +15,7 @@ export class RestaurantDetailComponent implements OnInit {
     restaurant: IRestaurant;
     location: ILocation = {};
 
-    constructor(private activatedRoute: ActivatedRoute, private locationService: LocationService) {}
+    constructor(private activatedRoute: ActivatedRoute, private locationService: LocationService, private router: Router) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ restaurant }) => {
@@ -25,6 +26,10 @@ export class RestaurantDetailComponent implements OnInit {
 
     previousState() {
         window.history.back();
+    }
+
+    createMenu() {
+        this.router.navigate(['menu/new', this.restaurant.id]);
     }
 
     loadLocatonDetails(id: string) {
