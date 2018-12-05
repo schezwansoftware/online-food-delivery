@@ -10,11 +10,11 @@ import com.codesetters.restaurantservice.service.dto.MenuItemDto;
 import com.codesetters.restaurantservice.service.mapper.DishesMapper;
 import com.codesetters.restaurantservice.service.mapper.MenuMapper;
 import com.codesetters.restaurantservice.web.rest.errors.BadRequestAlertException;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -100,8 +100,8 @@ public class MenuServiceImpl implements MenuService{
     public MenuItemDto saveMenuItem(MenuItemDto menuItemDto){
         Menu menu=new Menu();
 
-            Date date1=menuItemDto.getDate();
-            menu.setEndDate(ZonedDateTime.ofInstant(date1.toInstant(), ZoneId.systemDefault()));
+            LocalDate date1=menuItemDto.getDate();
+            menu.setEndDate(date1.atStartOfDay(ZoneId.systemDefault()));
 
 
 
