@@ -6,16 +6,16 @@
                    <div class="col-4">
                        <h3>Menu Till</h3>{{menu.endDate}}
                    </div>
-                    <div class="col-6">
+                    <div class="col-6 fa-pull-right">
                        <h3>Dishes</h3>
-                       <ngb-tabset>
-                           <ngb-tab title="Dessert">
+                       <ngb-tabset (tabChange)="dishType($event)">
+                           <ngb-tab title="Dessert" [activeId]="dessert">
 
                            </ngb-tab>
-                           <ngb-tab title="Starter">
+                           <ngb-tab title="Starter" [activeId]="Starter">
 
                            </ngb-tab>
-                           <ngb-tab title="sample">
+                           <ngb-tab title="sample" [activeId]="sample">
 
                            </ngb-tab>
                        </ngb-tabset>
