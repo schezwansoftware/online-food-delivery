@@ -12,6 +12,7 @@ type EntityArrayResponseType = HttpResponse<IDishes[]>;
 @Injectable({ providedIn: 'root' })
 export class DishesService {
     private resourceUrl = SERVER_API_URL + 'restaurantservice/api/dishes';
+    private dishByMenuUrl = SERVER_API_URL + 'restaurantservice/api/menu-dish';
 
     constructor(private http: HttpClient) {}
 
@@ -34,5 +35,9 @@ export class DishesService {
 
     delete(id: string): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    }
+
+    dishByMenuId(id: string): Observable<EntityArrayResponseType> {
+        return this.http.get<IDishes[]>(`${this.dishByMenuUrl}/${id}`, { observe: 'response' });
     }
 }

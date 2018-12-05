@@ -42,19 +42,19 @@ export const menuRoute: Routes = [
             menu: MenuResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER', 'ROLE_RESTAURANT_EXECUTIVE'],
             pageTitle: 'foodClientApp.restaurantServiceMenu.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'menu/new',
+        path: 'menu/new/:restaurantId',
         component: MenuUpdateComponent,
         resolve: {
             menu: MenuResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER', 'ROLE_RESTAURANT_EXECUTIVE'],
             pageTitle: 'foodClientApp.restaurantServiceMenu.home.title'
         },
         canActivate: [UserRouteAccessService]

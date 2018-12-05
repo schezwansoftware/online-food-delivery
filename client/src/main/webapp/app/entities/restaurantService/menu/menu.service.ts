@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IMenu } from 'app/shared/model/restaurantService/menu.model';
+import { IMenuItem } from 'app/shared/model/restaurantService/menu-Item.model';
 
 type EntityResponseType = HttpResponse<IMenu>;
 type EntityArrayResponseType = HttpResponse<IMenu[]>;
@@ -15,6 +16,7 @@ type EntityArrayResponseType = HttpResponse<IMenu[]>;
 @Injectable({ providedIn: 'root' })
 export class MenuService {
     private resourceUrl = SERVER_API_URL + 'restaurantservice/api/menus';
+    private menuItemUrl = SERVER_API_URL + 'restaurantservice/api/menu-Item';
 
     constructor(private http: HttpClient) {}
 
@@ -23,6 +25,11 @@ export class MenuService {
         return this.http
             .post<IMenu>(this.resourceUrl, copy, { observe: 'response' })
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
+
+    saveMenuItem(menu: IMenuItem): Observable<EntityResponseType> {
+        console.log(menu.date);
+        return this.http.post<IMenuItem>(this.menuItemUrl, menu, { observe: 'response' });
     }
 
     update(menu: IMenu): Observable<EntityResponseType> {
@@ -69,5 +76,11 @@ export class MenuService {
             menu.endDate = menu.endDate != null ? moment(menu.endDate) : null;
         });
         return res;
+    }
+
+    findByRestaurantId(id: string): Observable<EntityResponseType> {
+        return this.http
+            .get<IMenu>(`${this.menuItemUrl}/${id}`, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 }

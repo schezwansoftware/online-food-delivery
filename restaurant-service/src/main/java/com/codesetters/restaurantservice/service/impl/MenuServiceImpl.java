@@ -1,14 +1,21 @@
 package com.codesetters.restaurantservice.service.impl;
 
+import com.codesetters.restaurantservice.repository.DishesRepository;
 import com.codesetters.restaurantservice.service.MenuService;
 import com.codesetters.restaurantservice.domain.Menu;
 import com.codesetters.restaurantservice.repository.MenuRepository;
+import com.codesetters.restaurantservice.service.dto.DishesDTO;
 import com.codesetters.restaurantservice.service.dto.MenuDTO;
+import com.codesetters.restaurantservice.service.dto.MenuItemDto;
+import com.codesetters.restaurantservice.service.mapper.DishesMapper;
 import com.codesetters.restaurantservice.service.mapper.MenuMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -24,10 +31,15 @@ public class MenuServiceImpl implements MenuService{
 
     private final MenuRepository menuRepository;
 
+    private final DishesRepository dishesRepository;
+    private final DishesMapper dishesMapper;
+
     private final MenuMapper menuMapper;
 
-    public MenuServiceImpl(MenuRepository menuRepository, MenuMapper menuMapper) {
+    public MenuServiceImpl(MenuRepository menuRepository, DishesRepository dishesRepository, DishesMapper dishesMapper, MenuMapper menuMapper) {
         this.menuRepository = menuRepository;
+        this.dishesRepository = dishesRepository;
+        this.dishesMapper = dishesMapper;
         this.menuMapper = menuMapper;
     }
 
@@ -81,4 +93,34 @@ public class MenuServiceImpl implements MenuService{
         log.debug("Request to delete Menu : {}", id);
         menuRepository.delete(UUID.fromString(id));
     }
+
+    @Override
+    public MenuItemDto saveMenuItem(MenuItemDto menuItemDto){
+        Menu menu=new Menu();
+
+            Date date1=menuItemDto.getDate();
+            menu.setEndDate(ZonedDateTime.ofInstant(date1.toInstant(), ZoneId.systemDefault()));
+
+
+
+        menu.setStartDate(ZonedDateTime.now());
+        menu.setId(UUID.randomUUID());
+        menu.setRestaurantId(menuItemDto.getRestaurantId());
+        Menu savedMenu=menuRepository.save(menu);
+        for (DishesDTO dish: menuItemDto.getDishes()){
+            dish.setMenuId(savedMenu.getId());
+            dish.setId(UUID.randomUUID());
+            dishesRepository.save(dishesMapper.toEntity(dish));
+        }
+
+        return menuItemDto;
+    }
+    @Override
+    public MenuDTO findByRestaurantId(String restaurantId){
+
+       Menu obj = menuRepository.findAll().stream().filter(menu -> menu.getRestaurantId().equals(UUID.fromString(restaurantId))).
+           collect(Collectors.toList()).get(0);
+       return menuMapper.toDto(obj);
+    }
+
 }

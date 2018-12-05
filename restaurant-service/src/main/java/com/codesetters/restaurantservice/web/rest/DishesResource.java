@@ -116,4 +116,11 @@ public class DishesResource {
         dishesService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
+
+    @GetMapping("/menu-dish/{menuId}")
+    @Timed
+    public List<DishesDTO> dishByMenuId(@PathVariable String menuId){
+        log.debug("REST request to get Dishes by menu Id : {}", menuId);
+            return dishesService.dishByMenuId(menuId);
+    }
 }

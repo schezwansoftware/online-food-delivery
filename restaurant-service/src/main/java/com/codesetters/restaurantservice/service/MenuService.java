@@ -1,6 +1,8 @@
 package com.codesetters.restaurantservice.service;
 
 import com.codesetters.restaurantservice.service.dto.MenuDTO;
+import com.codesetters.restaurantservice.service.dto.MenuItemDto;
+
 import java.util.List;
 
 /**
@@ -15,6 +17,10 @@ public interface MenuService {
      * @return the persisted entity
      */
     MenuDTO save(MenuDTO menuDTO);
+
+    MenuItemDto saveMenuItem(MenuItemDto menuDTO);
+
+    MenuDTO findByRestaurantId(String restaurantId);
 
     /**
      *  Get all the menus.
