@@ -41,6 +41,11 @@
                 <fa-icon [icon]="'bars'"></fa-icon>&nbsp;<span>View Menu</span>
             </button>
 
+            <button type="submit"
+                    [routerLink]="['/restaurant-schedule/new',this.restaurant.id]"
+                    class="btn btn-info">
+                <fa-icon [icon]="'clock'"></fa-icon>&nbsp;<span>Set Up Schedule</span>
+            </button>
         </div>
     </div>
 </div>

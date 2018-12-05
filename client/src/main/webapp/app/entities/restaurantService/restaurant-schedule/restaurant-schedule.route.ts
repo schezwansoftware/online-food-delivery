@@ -48,13 +48,13 @@ export const restaurantScheduleRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'restaurant-schedule/new',
+        path: 'restaurant-schedule/new/:restaurantId',
         component: RestaurantScheduleUpdateComponent,
         resolve: {
             restaurantSchedule: RestaurantScheduleResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER', 'ROLE_RESTAURANT_EXECUTIVE'],
             pageTitle: 'foodClientApp.restaurantServiceRestaurantSchedule.home.title'
         },
         canActivate: [UserRouteAccessService]

@@ -1,5 +1,6 @@
 package com.codesetters.restaurantservice.service;
 
+import com.codesetters.restaurantservice.service.dto.DailyScheduleDTO;
 import com.codesetters.restaurantservice.service.dto.RestaurantScheduleDTO;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public interface RestaurantScheduleService {
      * @return the persisted entity
      */
     RestaurantScheduleDTO save(RestaurantScheduleDTO restaurantScheduleDTO);
+
+    RestaurantScheduleDTO saveDailySchedule(DailyScheduleDTO dailyScheduleDTO);
 
     /**
      * Get all the restaurantSchedules.
