@@ -19,6 +19,7 @@ export class MenuUpdateComponent implements OnInit {
     isSaving: boolean;
     startDate: string;
     endDate: string;
+    saveMenu: boolean;
     menuItem: MenuItemModel = {};
     dish: Dishes = {};
 
@@ -72,6 +73,7 @@ export class MenuUpdateComponent implements OnInit {
     }
 
     saveMenuDishes() {
+        this.saveMenu = true;
         this.menuItem.restaurantId = this.activatedRoute.snapshot.paramMap.get('restaurantId');
         this.menuService.saveMenuItem(this.menuItem).subscribe(
             res => {
@@ -80,6 +82,7 @@ export class MenuUpdateComponent implements OnInit {
                 this.router.navigate(['/restaurant', `${res.body.restaurantId}`, 'view']);
             },
             error1 => {
+                this.saveMenu = false;
                 console.log(error1);
             }
         );
