@@ -107,13 +107,20 @@ public class MenuServiceImpl implements MenuService{
         menu.setId(UUID.randomUUID());
         menu.setRestaurantId(menuItemDto.getRestaurantId());
         Menu savedMenu=menuRepository.save(menu);
-        if(savedMenu!=null){
-            for (DishesDTO dish: menuItemDto.getDishes()){
-                dish.setMenuId(savedMenu.getId());
-                dish.setId(UUID.randomUUID());
-                dishesRepository.save(dishesMapper.toEntity(dish));
-            }
+        for (DishesDTO dish: menuItemDto.getDishes()){
+            dish.setMenuId(savedMenu.getId());
+            dish.setId(UUID.randomUUID());
+            dishesRepository.save(dishesMapper.toEntity(dish));
         }
+
         return menuItemDto;
     }
+    @Override
+    public MenuDTO findByRestaurantId(String restaurantId){
+
+       Menu obj = menuRepository.findAll().stream().filter(menu -> menu.getRestaurantId().equals(UUID.fromString(restaurantId))).
+           collect(Collectors.toList()).get(0);
+       return menuMapper.toDto(obj);
+    }
+
 }

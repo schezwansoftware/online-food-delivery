@@ -28,10 +28,23 @@
                     class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button> &nbsp;
-            <button type="submit"
-                    (click)="createMenu()"
+
+            <button type="submit" *ngIf="!isMenu"
+                    [routerLink]="['/menu/new',restaurant.id]"
                     class="btn btn-info">
-                <fa-icon [icon]="'arrow-right'"></fa-icon>Create Menu</span>
+                <fa-icon [icon]="'book'"></fa-icon>&nbsp;<span>Create Menu</span>
+            </button>
+
+            <button type="submit" *ngIf="isMenu"
+                    [routerLink]="['/menu', menu.id, 'view']"
+                    class="btn btn-info">
+                <fa-icon [icon]="'bars'"></fa-icon>&nbsp;<span>View Menu</span>
+            </button>
+
+            <button type="submit"
+                    [routerLink]="['/restaurant-schedule/new',this.restaurant.id]"
+                    class="btn btn-info">
+                <fa-icon [icon]="'clock'"></fa-icon>&nbsp;<span>Set Up Schedule</span>
             </button>
         </div>
     </div>

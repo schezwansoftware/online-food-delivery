@@ -22,6 +22,7 @@ public interface DishesService {
      *  @return the list of entities
      */
     List<DishesDTO> findAll();
+    List<DishesDTO> dishByMenuId(String menuId);
 
     /**
      *  Get the "id" dishes.

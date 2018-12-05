@@ -81,4 +81,10 @@ public class DishesServiceImpl implements DishesService{
         log.debug("Request to delete Dishes : {}", id);
         dishesRepository.delete(UUID.fromString(id));
     }
+    @Override
+    public List<DishesDTO> dishByMenuId(String menuId){
+        log.debug("Request to get Dishes by menu id : {}", menuId);
+       return dishesRepository.findAll().stream().filter(dishes -> dishes.getMenuId().equals(UUID.fromString(menuId))).map(dishesMapper::toDto).collect(Collectors.toList());
+
+    }
 }
