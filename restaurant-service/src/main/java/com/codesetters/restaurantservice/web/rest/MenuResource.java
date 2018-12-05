@@ -1,7 +1,10 @@
 package com.codesetters.restaurantservice.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codesetters.restaurantservice.domain.Dishes;
 import com.codesetters.restaurantservice.service.MenuService;
+import com.codesetters.restaurantservice.service.dto.DishesDTO;
+import com.codesetters.restaurantservice.service.dto.MenuItemDto;
 import com.codesetters.restaurantservice.web.rest.errors.BadRequestAlertException;
 import com.codesetters.restaurantservice.web.rest.util.HeaderUtil;
 import com.codesetters.restaurantservice.service.dto.MenuDTO;
@@ -116,4 +119,24 @@ public class MenuResource {
         menuService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
+
+    @PostMapping("/menu-Item")
+    @Timed
+    public ResponseEntity<MenuItemDto> saveMenuItem(@RequestBody MenuItemDto menuItemDto) throws URISyntaxException {
+        log.debug("Rest request to save menu-item",menuItemDto.getDate());
+       MenuItemDto result= menuService.saveMenuItem(menuItemDto);
+        return ResponseEntity.created(new URI("/api/menu-item/" + result.getRestaurantId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getRestaurantId().toString()))
+            .body(result);
+    }
+
+    @GetMapping("/menu-Item/{restaurantId}")
+    @Timed
+    public ResponseEntity<MenuDTO> getMenuByRestaurantId(@PathVariable String restaurantId) {
+        log.debug("REST request to get Menu : {}", restaurantId);
+        MenuDTO menuDTO = menuService.findByRestaurantId(restaurantId);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(menuDTO));
+    }
+
+
 }

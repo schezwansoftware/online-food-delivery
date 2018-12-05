@@ -1,0 +1,41 @@
+package com.codesetters.restaurantservice.service.dto;
+
+import java.io.Serializable;
+import java.time.ZonedDateTime;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+public class MenuItemDto implements Serializable {
+
+    private Date date;
+
+    private UUID restaurantId;
+
+   private List<DishesDTO> dishes;
+
+    public UUID getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(UUID restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public List<DishesDTO> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(List<DishesDTO> dishes) {
+        this.dishes = dishes;
+    }
+
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+}
