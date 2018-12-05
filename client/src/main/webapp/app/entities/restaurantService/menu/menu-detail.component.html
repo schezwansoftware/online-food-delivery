@@ -1,23 +1,26 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="menu">
-            <h2><span jhiTranslate="foodClientApp.restaurantServiceMenu.detail.title">Menu</span> {{menu.id}}</h2>
-            <hr>
             <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="foodClientApp.restaurantServiceMenu.restaurantId">Restaurant Id</span></dt>
-                <dd>
-                    <span>{{menu.restaurantId}}</span>
-                </dd>
-                <dt><span jhiTranslate="foodClientApp.restaurantServiceMenu.startDate">Start Date</span></dt>
-                <dd>
-                    <span>{{menu.startDate}}</span>
-                </dd>
-                <dt><span jhiTranslate="foodClientApp.restaurantServiceMenu.endDate">End Date</span></dt>
-                <dd>
-                    <span>{{menu.endDate}}</span>
-                </dd>
-            </dl>
+           <div class="col-12 row">
+                   <div class="col-4">
+                       <h3>Menu Till</h3>{{menu.endDate}}
+                   </div>
+                    <div class="col-6">
+                       <h3>Dishes</h3>
+                       <ngb-tabset>
+                           <ngb-tab title="Dessert">
+
+                           </ngb-tab>
+                           <ngb-tab title="Starter">
+
+                           </ngb-tab>
+                           <ngb-tab title="sample">
+
+                           </ngb-tab>
+                       </ngb-tabset>
+                   </div>
+           </div>
 
             <button type="submit"
                     (click)="previousState()"
