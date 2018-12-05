@@ -1,6 +1,7 @@
 package com.codesetters.restaurantservice.service.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.UUID;
 
 public class MenuItemDto implements Serializable {
 
-    private Date date;
+    private LocalDate date;
 
     private UUID restaurantId;
 
@@ -31,11 +32,11 @@ public class MenuItemDto implements Serializable {
     }
 
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }

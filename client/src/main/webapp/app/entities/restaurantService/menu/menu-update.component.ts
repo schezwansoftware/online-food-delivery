@@ -19,6 +19,7 @@ export class MenuUpdateComponent implements OnInit {
     isSaving: boolean;
     startDate: string;
     endDate: string;
+    saveMenu: boolean;
     menuItem: MenuItemModel = {};
     dish: Dishes = {};
 
@@ -27,6 +28,7 @@ export class MenuUpdateComponent implements OnInit {
     ngOnInit() {
         this.menuItem.dishes = [];
         this.isSaving = false;
+        this.saveMenu = true;
         this.activatedRoute.data.subscribe(({ menu }) => {
             this.menu = menu;
             this.startDate = this.menu.startDate != null ? this.menu.startDate.format(DATE_TIME_FORMAT) : null;
@@ -75,11 +77,10 @@ export class MenuUpdateComponent implements OnInit {
         this.menuItem.restaurantId = this.activatedRoute.snapshot.paramMap.get('restaurantId');
         this.menuService.saveMenuItem(this.menuItem).subscribe(
             res => {
-                alert(res.body);
-                console.log(res.body);
                 this.router.navigate(['/restaurant', `${res.body.restaurantId}`, 'view']);
             },
             error1 => {
+                this.saveMenu = false;
                 console.log(error1);
             }
         );
