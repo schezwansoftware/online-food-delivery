@@ -76,7 +76,7 @@ export class RestaurantScheduleUpdateComponent implements OnInit {
         this.days = {};
     }
 
-    removeSchedule(schedule: IRestaurantSchedule) {
+    removeSchedule(schedule) {
         this.scheduleModel.schedule.splice(schedule, 1);
     }
 
