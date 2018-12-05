@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -124,6 +125,9 @@ public class MenuResource {
     @Timed
     public ResponseEntity<MenuItemDto> saveMenuItem(@RequestBody MenuItemDto menuItemDto) throws URISyntaxException {
         log.debug("Rest request to save menu-item",menuItemDto.getDate());
+        if (menuItemDto.getDate().isBefore(LocalDate.now())){
+            throw new BadRequestAlertException("Invalid","end","date");
+        }
        MenuItemDto result= menuService.saveMenuItem(menuItemDto);
         return ResponseEntity.created(new URI("/api/menu-item/" + result.getRestaurantId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getRestaurantId().toString()))

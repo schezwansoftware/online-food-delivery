@@ -19,6 +19,10 @@ export class RestaurantScheduleService {
         return this.http.post<IRestaurantSchedule>(this.resourceUrl, restaurantSchedule, { observe: 'response' });
     }
 
+    saveDailySchedule(scheduleModel: any): Observable<EntityResponseType> {
+        return this.http.post<IRestaurantSchedule>(`${this.resourceUrl}/daily`, scheduleModel, { observe: 'response' });
+    }
+
     update(restaurantSchedule: IRestaurantSchedule): Observable<EntityResponseType> {
         return this.http.put<IRestaurantSchedule>(this.resourceUrl, restaurantSchedule, { observe: 'response' });
     }

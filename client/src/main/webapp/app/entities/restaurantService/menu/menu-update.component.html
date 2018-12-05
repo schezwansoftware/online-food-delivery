@@ -1,18 +1,19 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="saveMenuDishes()" #editForm="ngForm">
-            <h2>Enter Menu Date</h2>
+            <h2>Create Your Menu</h2>
             <div>
-                <jhi-alert-error></jhi-alert-error>
+              <div class="col-md-8">
+                <div class="alert alert-danger" *ngIf="!saveMenu">
+                    <strong>Failed to authenticate! </strong>{{errorMessage}}
+                </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="foodClientApp.restaurantServiceMenu.endDate" for="field_endDate">End Date</label>
+                    <label class="form-control-label" for="field_endDate">Menu Ends On</label>
                     <div class="d-flex">
                         <input id="field_endDate" type="date" class="form-control" name="endDate" [(ngModel)]="menuItem.date"
                         />
                     </div>
                 </div>
-                {{menuItem.date}}
-
                 <h5>Enter Dishes For this Menu </h5><br/>
 
                 <div class="form-group">
@@ -24,9 +25,9 @@
                 <div class="form-group">
                     <label class="form-control-label">Dish Type</label>
                     <select class="form-control" name="dishType" id="field_dishType" [(ngModel)]="dish.dishType">
-                    <option value="mainCourse">Main Course</option>
-                    <option value="dessert">Desert</option>
-                    <option value="starter">Starter</option>
+                    <option value="Main Course">Main Course</option>
+                    <option value="Dessert">Dessert</option>
+                    <option value="Starter">Starter</option>
                     </select>
                 </div>
                 <div class="form-group">

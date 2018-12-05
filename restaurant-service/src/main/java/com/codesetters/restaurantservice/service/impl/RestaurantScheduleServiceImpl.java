@@ -1,10 +1,14 @@
 package com.codesetters.restaurantservice.service.impl;
 
+import com.codesetters.restaurantservice.domain.Restaurant;
+import com.codesetters.restaurantservice.repository.RestaurantRepository;
 import com.codesetters.restaurantservice.service.RestaurantScheduleService;
 import com.codesetters.restaurantservice.domain.RestaurantSchedule;
 import com.codesetters.restaurantservice.repository.RestaurantScheduleRepository;
+import com.codesetters.restaurantservice.service.dto.DailyScheduleDTO;
 import com.codesetters.restaurantservice.service.dto.RestaurantScheduleDTO;
 import com.codesetters.restaurantservice.service.mapper.RestaurantScheduleMapper;
+import com.codesetters.restaurantservice.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,9 +32,12 @@ public class RestaurantScheduleServiceImpl implements RestaurantScheduleService 
 
     private final RestaurantScheduleMapper restaurantScheduleMapper;
 
-    public RestaurantScheduleServiceImpl(RestaurantScheduleRepository restaurantScheduleRepository, RestaurantScheduleMapper restaurantScheduleMapper) {
+    private final RestaurantRepository restaurantRepository;
+
+    public RestaurantScheduleServiceImpl(RestaurantScheduleRepository restaurantScheduleRepository, RestaurantScheduleMapper restaurantScheduleMapper, RestaurantRepository restaurantRepository) {
         this.restaurantScheduleRepository = restaurantScheduleRepository;
         this.restaurantScheduleMapper = restaurantScheduleMapper;
+        this.restaurantRepository = restaurantRepository;
     }
 
     /**
@@ -46,6 +53,24 @@ public class RestaurantScheduleServiceImpl implements RestaurantScheduleService 
         RestaurantSchedule restaurantSchedule = restaurantScheduleMapper.toEntity(restaurantScheduleDTO);
         restaurantSchedule = restaurantScheduleRepository.save(restaurantSchedule);
         return restaurantScheduleMapper.toDto(restaurantSchedule);
+    }
+
+    @Override
+    public RestaurantScheduleDTO saveDailySchedule(DailyScheduleDTO dailyScheduleDTO) {
+        Optional<Restaurant> restaurant = restaurantRepository.findById(dailyScheduleDTO.getRestaurantId());
+        if (!restaurant.isPresent()){
+            throw new BadRequestAlertException("Invalid restaurantid","restaurant","restaurantnotexists");
+        }
+        RestaurantScheduleDTO scheduleDTO = new RestaurantScheduleDTO();
+        for (RestaurantScheduleDTO restaurantScheduleDTO: dailyScheduleDTO.getSchedule()){
+            restaurantScheduleDTO.setId(UUID.randomUUID());
+            restaurantScheduleDTO.setRestaurantId(dailyScheduleDTO.getRestaurantId());
+
+            RestaurantSchedule restaurantSchedule = restaurantScheduleMapper.toEntity(restaurantScheduleDTO);
+             restaurantSchedule = restaurantScheduleRepository.save(restaurantSchedule);
+             scheduleDTO = restaurantScheduleMapper.toDto(restaurantSchedule);
+        }
+        return scheduleDTO;
     }
 
     /**
