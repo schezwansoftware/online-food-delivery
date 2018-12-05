@@ -2,6 +2,7 @@ package com.codesetters.restaurantservice.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.codesetters.restaurantservice.service.RestaurantScheduleService;
+import com.codesetters.restaurantservice.service.dto.DailyScheduleDTO;
 import com.codesetters.restaurantservice.web.rest.errors.BadRequestAlertException;
 import com.codesetters.restaurantservice.web.rest.util.HeaderUtil;
 import com.codesetters.restaurantservice.service.dto.RestaurantScheduleDTO;
@@ -116,5 +117,19 @@ public class RestaurantScheduleResource {
         log.debug("REST request to delete RestaurantSchedule : {}", id);
         restaurantScheduleService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+
+    @PostMapping("/restaurant-schedules/daily")
+    @Timed
+    public ResponseEntity<RestaurantScheduleDTO> saveDailySchedule(@RequestBody DailyScheduleDTO dailyScheduleDTO) throws URISyntaxException {
+        log.debug("REST request to save daily RestaurantSchedule : {}", dailyScheduleDTO);
+        if (dailyScheduleDTO.getRestaurantId() == null) {
+            throw new BadRequestAlertException("No Restaurant id provided", ENTITY_NAME, "idnotexists");
+        }
+        RestaurantScheduleDTO result = restaurantScheduleService.saveDailySchedule(dailyScheduleDTO);
+        return ResponseEntity.created(new URI("/api/restaurant-schedules/daily" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 }

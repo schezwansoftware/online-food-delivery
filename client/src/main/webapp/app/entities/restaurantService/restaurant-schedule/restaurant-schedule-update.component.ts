@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -23,7 +23,11 @@ export class RestaurantScheduleUpdateComponent implements OnInit {
         schedule: []
     };
 
-    constructor(private restaurantScheduleService: RestaurantScheduleService, private activatedRoute: ActivatedRoute) {}
+    constructor(
+        private restaurantScheduleService: RestaurantScheduleService,
+        private activatedRoute: ActivatedRoute,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
@@ -39,6 +43,8 @@ export class RestaurantScheduleUpdateComponent implements OnInit {
     save() {
         this.isSaving = true;
         this.scheduleModel.restaurantId = this.restaurantId;
+
+        this.subscribeToSaveResponse(this.restaurantScheduleService.saveDailySchedule(this.scheduleModel));
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IRestaurantSchedule>>) {
@@ -47,7 +53,7 @@ export class RestaurantScheduleUpdateComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-        this.previousState();
+        this.router.navigate(['restaurant', this.restaurantId, 'view']);
     }
 
     private onSaveError() {
@@ -55,8 +61,8 @@ export class RestaurantScheduleUpdateComponent implements OnInit {
     }
 
     addSchedule() {
-        Object.entries(this.days).forEach(([key, value]) => {
-            if (value) {
+        Object.keys(this.days).forEach(key => {
+            if (this.days[key]) {
                 const schedule = this.getScheduleByDay(key);
                 if (schedule.length > 0) {
                     schedule[0].closingTime = this.closingTime;
