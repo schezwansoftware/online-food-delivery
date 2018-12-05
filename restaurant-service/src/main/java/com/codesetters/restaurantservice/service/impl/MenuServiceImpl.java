@@ -9,6 +9,8 @@ import com.codesetters.restaurantservice.service.dto.MenuDTO;
 import com.codesetters.restaurantservice.service.dto.MenuItemDto;
 import com.codesetters.restaurantservice.service.mapper.DishesMapper;
 import com.codesetters.restaurantservice.service.mapper.MenuMapper;
+import com.codesetters.restaurantservice.web.rest.errors.BadRequestAlertException;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -118,9 +120,14 @@ public class MenuServiceImpl implements MenuService{
     @Override
     public MenuDTO findByRestaurantId(String restaurantId){
 
-       Menu obj = menuRepository.findAll().stream().filter(menu -> menu.getRestaurantId().equals(UUID.fromString(restaurantId))).
-           collect(Collectors.toList()).get(0);
-       return menuMapper.toDto(obj);
+       List<Menu> menus = menuRepository.findAll().stream().filter(menu -> menu.getRestaurantId().equals(UUID.fromString(restaurantId))).
+           collect(Collectors.toList());
+       if(!menus.isEmpty()){
+           return menuMapper.toDto(menus.get(0));
+
+       }
+        throw new BadRequestAlertException("can Not find", "menu for ", "this restaurant");
+
     }
 
 }
