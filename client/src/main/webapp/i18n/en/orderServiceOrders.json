@@ -1,0 +1,32 @@
+
+{
+    "foodClientApp": {
+        "orderServiceOrders" : {
+            "home": {
+                "title": "Orders",
+                "createLabel": "Create a new Orders",
+                "createOrEditLabel": "Create or edit a Orders"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Orders {{ id }}?"
+            },
+            "detail": {
+                "title": "Orders"
+            },
+            "restaurantId": "Restaurant Id",
+            "userId": "User Id",
+            "status": "Status",
+            "paymentStatus": "Payment Status",
+            "totalPrice": "Total Price",
+            "deliveryAddress": "Delivery Address",
+            "specialNote": "Special Note"
+        }
+    },
+    "orderServiceApp": {
+        "orderServiceOrders" : {
+            "created": "A new Orders is created with identifier {{ param }}",
+            "updated": "A Orders is updated with identifier {{ param }}",
+            "deleted": "A Orders is deleted with identifier {{ param }}"
+        }
+    }
+}

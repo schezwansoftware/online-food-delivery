@@ -3,7 +3,7 @@
     "promptValues": {
       "packageName": "com.codesetters.foodclient",
       "nativeLanguage": "en",
-      "microservicePath": "../restaurant-service"
+      "microservicePath": "../order-service"
     },
     "jhipsterVersion": "5.4.2",
     "applicationType": "gateway",

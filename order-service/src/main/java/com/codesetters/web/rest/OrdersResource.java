@@ -2,6 +2,7 @@ package com.codesetters.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.codesetters.service.OrdersService;
+import com.codesetters.service.dto.Order;
 import com.codesetters.web.rest.errors.BadRequestAlertException;
 import com.codesetters.web.rest.util.HeaderUtil;
 import com.codesetters.service.dto.OrdersDTO;
@@ -15,6 +16,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -39,23 +41,23 @@ public class OrdersResource {
     /**
      * POST  /orders : Create a new orders.
      *
-     * @param ordersDTO the ordersDTO to create
+     * @param order the ordersDTO to create
      * @return the ResponseEntity with status 201 (Created) and with body the new ordersDTO, or with status 400 (Bad Request) if the orders has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/orders")
     @Timed
-    public ResponseEntity<OrdersDTO> createOrders(@Valid @RequestBody OrdersDTO ordersDTO) throws URISyntaxException {
-        log.debug("REST request to save Orders : {}", ordersDTO);
-        if (ordersDTO.getId() != null) {
-            throw new BadRequestAlertException("A new orders cannot already have an ID", ENTITY_NAME, "idexists");
+    public ResponseEntity<Order> createOrders(@Valid @RequestBody Order order) throws URISyntaxException {
+        log.debug("REST request to create Order : {}", order);
+        if (order.getOrderInfo().getId() != null) {
+            throw new BadRequestAlertException("A new order cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ordersDTO.setId(UUID.randomUUID());
-        OrdersDTO result = ordersService.save(ordersDTO);
-        return ResponseEntity.created(new URI("/api/orders/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+        Order result = ordersService.createOrder(order);
+        return ResponseEntity.created(new URI("/api/orders/" + result.getOrderInfo().getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getOrderInfo().getId().toString()))
             .body(result);
     }
+
 
     /**
      * PUT  /orders : Updates an existing orders.
@@ -90,6 +92,7 @@ public class OrdersResource {
         log.debug("REST request to get all Orders");
         return ordersService.findAll();
     }
+
 
     /**
      * GET  /orders/:id : get the "id" orders.

@@ -1,14 +1,21 @@
 package com.codesetters.service.impl;
 
+import com.codesetters.repository.OrderItemRepository;
 import com.codesetters.service.OrdersService;
 import com.codesetters.domain.Orders;
 import com.codesetters.repository.OrdersRepository;
+import com.codesetters.service.UserService;
+import com.codesetters.service.dto.Order;
 import com.codesetters.service.dto.OrdersDTO;
+import com.codesetters.service.dto.UserDTO;
+import com.codesetters.service.mapper.OrderItemMapper;
 import com.codesetters.service.mapper.OrdersMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,9 +35,21 @@ public class OrdersServiceImpl implements OrdersService {
 
     private final OrdersMapper ordersMapper;
 
-    public OrdersServiceImpl(OrdersRepository ordersRepository, OrdersMapper ordersMapper) {
+    private final OrderItemRepository orderItemRepository;
+
+    private final OrderItemMapper orderItemMapper;
+
+    private final UserService userService;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    public OrdersServiceImpl(OrdersRepository ordersRepository, OrdersMapper ordersMapper, OrderItemRepository orderItemRepository, OrderItemMapper orderItemMapper, UserService userService) {
         this.ordersRepository = ordersRepository;
         this.ordersMapper = ordersMapper;
+        this.orderItemRepository = orderItemRepository;
+        this.orderItemMapper = orderItemMapper;
+        this.userService = userService;
     }
 
     /**
@@ -73,6 +92,12 @@ public class OrdersServiceImpl implements OrdersService {
         log.debug("Request to get Orders : {}", id);
         return ordersRepository.findById(id)
             .map(ordersMapper::toDto);
+    }
+
+    @Override
+    public Order createOrder(Order order) {
+        UserDTO userDTO = userService.getUserWithAuthorities(order.getOrderInfo().getUserId());
+        return null;
     }
 
     /**
