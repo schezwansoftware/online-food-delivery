@@ -1,0 +1,35 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.codesetters"
+    },
+    "jhipsterVersion": "5.4.2",
+    "applicationType": "microservice",
+    "baseName": "orderService",
+    "packageName": "com.codesetters",
+    "packageFolder": "com/codesetters",
+    "serverPort": "9093",
+    "authenticationType": "uaa",
+    "uaaBaseName": "account",
+    "cacheProvider": "no",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "cassandra",
+    "devDatabaseType": "cassandra",
+    "prodDatabaseType": "cassandra",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "MmY2MGYxYjk3N2M4MjllYTFiYWU2ZjM2YmE3ZDcwZTFhNjJjM2E1NGVjY2QxYTUzYTdiMjY5ZDExZWU3NjE0NjlmNTM0MTUxOWZjZDFkNDU0ZTUyODZkZjMxZDk3NmRhMjE1MTY4YWEwYmRiYTU5YTY3YzQyNWFiMDhjZjM0YTg=",
+    "enableTranslation": false,
+    "testFrameworks": [
+      "gatling"
+    ],
+    "jhiPrefix": "jhi",
+    "clientPackageManager": "npm",
+    "skipClient": true,
+    "skipUserManagement": true
+  }
+}
