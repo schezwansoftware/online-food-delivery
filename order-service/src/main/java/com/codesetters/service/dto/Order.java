@@ -1,5 +1,7 @@
 package com.codesetters.service.dto;
 
+import com.codesetters.domain.PaymentStatus;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -11,6 +13,9 @@ public class Order implements Serializable{
     private OrdersDTO orderInfo;
 
     private List<OrderItemDTO> itemsInfo;
+
+    @NotNull
+    private PaymentStatus paymentStatus;
 
 
     public OrdersDTO getOrderInfo() {
@@ -35,6 +40,15 @@ public class Order implements Serializable{
         return "Order{" +
             ", orderInfo='" + getOrderInfo() + "'" +
             ", ItemsInfo='" + getItemsInfo() + "'" +
+            ", paymentStatus='" + getPaymentStatus() + "'" +
             "}";
+    }
+
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 }

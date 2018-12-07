@@ -1,6 +1,7 @@
 package com.codesetters.service;
 
 import com.codesetters.service.dto.Order;
+import com.codesetters.service.dto.OrderUpdateStatusDTO;
 import com.codesetters.service.dto.OrdersDTO;
 
 import java.util.List;
@@ -38,6 +39,9 @@ public interface OrdersService {
 
 
     Order createOrder(Order order);
+
+
+    OrdersDTO updateOrderStatus(OrderUpdateStatusDTO updateStatusDTO);
 
     /**
      * Delete the "id" orders.

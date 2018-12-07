@@ -1,15 +1,13 @@
 package com.codesetters.service.impl;
 
 import com.codesetters.domain.OrderStatus;
+import com.codesetters.domain.PaymentStatus;
 import com.codesetters.repository.OrderItemRepository;
 import com.codesetters.service.OrdersService;
 import com.codesetters.domain.Orders;
 import com.codesetters.repository.OrdersRepository;
 import com.codesetters.service.UserService;
-import com.codesetters.service.dto.Order;
-import com.codesetters.service.dto.OrderItemDTO;
-import com.codesetters.service.dto.OrdersDTO;
-import com.codesetters.service.dto.UserDTO;
+import com.codesetters.service.dto.*;
 import com.codesetters.service.mapper.OrderItemMapper;
 import com.codesetters.service.mapper.OrdersMapper;
 import com.codesetters.web.rest.errors.BadRequestAlertException;
@@ -104,6 +102,7 @@ public class OrdersServiceImpl implements OrdersService {
             order.getOrderInfo().setStatus(OrderStatus.RECIEVED.name());
             order.getOrderInfo().setCreatedAt(Instant.now());
             order.getOrderInfo().setId(UUID.randomUUID());
+            order.getOrderInfo().setPaymentStatus(order.getPaymentStatus().name());
             order = calculateCost(order);
             this.ordersRepository.save(ordersMapper.toEntity(order.getOrderInfo()));
         } catch (HystrixRuntimeException he) {
@@ -116,6 +115,26 @@ public class OrdersServiceImpl implements OrdersService {
         return order;
     }
 
+    @Override
+    public OrdersDTO updateOrderStatus(OrderUpdateStatusDTO updateStatusDTO) {
+        Optional<Orders> existingOrder = this.ordersRepository.findById(updateStatusDTO.getOrderId());
+        if (!existingOrder.isPresent()) {
+            throw new BadRequestAlertException("Order not found","orders","notFound");
+        }
+        Orders orders = existingOrder.get();
+        orders.setStatus(updateStatusDTO.getOrderStatus().name());
+
+        if (updateStatusDTO.getPaymentStatus().equals(PaymentStatus.COMPLETED)) {
+            if (updateStatusDTO.getPaymentId() == null){
+                throw new BadRequestAlertException("Invalid Payment id for a Completed Payment","orders","invalidPaymentId");
+            }
+            //Find Payment from payment service and check whether payment is completed or not
+            //if payment is completed, then
+            orders.setPaymentStatus(updateStatusDTO.getPaymentStatus().name());
+        }
+        orders = this.ordersRepository.save(orders);
+        return ordersMapper.toDto(orders);
+    }
 
 
     private Order calculateCost(Order order){
