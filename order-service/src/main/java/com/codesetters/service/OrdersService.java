@@ -1,5 +1,7 @@
 package com.codesetters.service;
 
+import com.codesetters.service.dto.Order;
+import com.codesetters.service.dto.OrderUpdateStatusDTO;
 import com.codesetters.service.dto.OrdersDTO;
 
 import java.util.List;
@@ -34,6 +36,12 @@ public interface OrdersService {
      * @return the entity
      */
     Optional<OrdersDTO> findOne(UUID id);
+
+
+    Order createOrder(Order order);
+
+
+    OrdersDTO updateOrderStatus(OrderUpdateStatusDTO updateStatusDTO);
 
     /**
      * Delete the "id" orders.

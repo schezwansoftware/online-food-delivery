@@ -1,0 +1,32 @@
+
+{
+    "foodClientApp": {
+        "orderServiceOrders" : {
+            "home": {
+                "title": "Orders",
+                "createLabel": "नया Orders बनाएँ",
+                "createOrEditLabel": "Orders बनाएँ या संपादित करें"
+            },
+            "delete": {
+                "question": "Orders [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Orders"
+            },
+            "restaurantId": "Restaurant Id",
+            "userId": "User Id",
+            "status": "Status",
+            "paymentStatus": "Payment Status",
+            "totalPrice": "Total Price",
+            "deliveryAddress": "Delivery Address",
+            "specialNote": "Special Note"
+        }
+    },
+    "orderServiceApp": {
+        "orderServiceOrders" : {
+            "created": "एक नया Orders [identifier: {{ param }}] तैयार है",
+            "updated": "एक Orders [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Orders [identifier: {{ param }}] हटा दिया है"
+        }
+    }
+}

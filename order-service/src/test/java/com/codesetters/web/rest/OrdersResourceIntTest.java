@@ -25,6 +25,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import java.util.UUID;
@@ -64,6 +66,15 @@ public class OrdersResourceIntTest extends AbstractCassandraTest {
 
     private static final String DEFAULT_SPECIAL_NOTE = "AAAAAAAAAA";
     private static final String UPDATED_SPECIAL_NOTE = "BBBBBBBBBB";
+
+    private static final Instant DEFAULT_CREATED_AT = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_CREATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final Instant DEFAULT_LAST_MODIFIED_AT = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_LAST_MODIFIED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final String DEFAULT_LAST_MODIFIED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_LAST_MODIFIED_BY = "BBBBBBBBBB";
 
     @Autowired
     private OrdersRepository ordersRepository;
@@ -112,7 +123,10 @@ public class OrdersResourceIntTest extends AbstractCassandraTest {
             .paymentStatus(DEFAULT_PAYMENT_STATUS)
             .totalPrice(DEFAULT_TOTAL_PRICE)
             .deliveryAddress(DEFAULT_DELIVERY_ADDRESS)
-            .specialNote(DEFAULT_SPECIAL_NOTE);
+            .specialNote(DEFAULT_SPECIAL_NOTE)
+            .createdAt(DEFAULT_CREATED_AT)
+            .lastModifiedAt(DEFAULT_LAST_MODIFIED_AT)
+            .lastModifiedBy(DEFAULT_LAST_MODIFIED_BY);
         return orders;
     }
 
@@ -144,6 +158,9 @@ public class OrdersResourceIntTest extends AbstractCassandraTest {
         assertThat(testOrders.getTotalPrice()).isEqualTo(DEFAULT_TOTAL_PRICE);
         assertThat(testOrders.getDeliveryAddress()).isEqualTo(DEFAULT_DELIVERY_ADDRESS);
         assertThat(testOrders.getSpecialNote()).isEqualTo(DEFAULT_SPECIAL_NOTE);
+        assertThat(testOrders.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        assertThat(testOrders.getLastModifiedAt()).isEqualTo(DEFAULT_LAST_MODIFIED_AT);
+        assertThat(testOrders.getLastModifiedBy()).isEqualTo(DEFAULT_LAST_MODIFIED_BY);
     }
 
     @Test
@@ -254,7 +271,10 @@ public class OrdersResourceIntTest extends AbstractCassandraTest {
             .andExpect(jsonPath("$.[*].paymentStatus").value(hasItem(DEFAULT_PAYMENT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].totalPrice").value(hasItem(DEFAULT_TOTAL_PRICE.doubleValue())))
             .andExpect(jsonPath("$.[*].deliveryAddress").value(hasItem(DEFAULT_DELIVERY_ADDRESS.toString())))
-            .andExpect(jsonPath("$.[*].specialNote").value(hasItem(DEFAULT_SPECIAL_NOTE.toString())));
+            .andExpect(jsonPath("$.[*].specialNote").value(hasItem(DEFAULT_SPECIAL_NOTE.toString())))
+            .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].lastModifiedAt").value(hasItem(DEFAULT_LAST_MODIFIED_AT.toString())))
+            .andExpect(jsonPath("$.[*].lastModifiedBy").value(hasItem(DEFAULT_LAST_MODIFIED_BY.toString())));
     }
     
     @Test
@@ -274,7 +294,10 @@ public class OrdersResourceIntTest extends AbstractCassandraTest {
             .andExpect(jsonPath("$.paymentStatus").value(DEFAULT_PAYMENT_STATUS.toString()))
             .andExpect(jsonPath("$.totalPrice").value(DEFAULT_TOTAL_PRICE.doubleValue()))
             .andExpect(jsonPath("$.deliveryAddress").value(DEFAULT_DELIVERY_ADDRESS.toString()))
-            .andExpect(jsonPath("$.specialNote").value(DEFAULT_SPECIAL_NOTE.toString()));
+            .andExpect(jsonPath("$.specialNote").value(DEFAULT_SPECIAL_NOTE.toString()))
+            .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
+            .andExpect(jsonPath("$.lastModifiedAt").value(DEFAULT_LAST_MODIFIED_AT.toString()))
+            .andExpect(jsonPath("$.lastModifiedBy").value(DEFAULT_LAST_MODIFIED_BY.toString()));
     }
 
     @Test
@@ -301,7 +324,10 @@ public class OrdersResourceIntTest extends AbstractCassandraTest {
             .paymentStatus(UPDATED_PAYMENT_STATUS)
             .totalPrice(UPDATED_TOTAL_PRICE)
             .deliveryAddress(UPDATED_DELIVERY_ADDRESS)
-            .specialNote(UPDATED_SPECIAL_NOTE);
+            .specialNote(UPDATED_SPECIAL_NOTE)
+            .createdAt(UPDATED_CREATED_AT)
+            .lastModifiedAt(UPDATED_LAST_MODIFIED_AT)
+            .lastModifiedBy(UPDATED_LAST_MODIFIED_BY);
         OrdersDTO ordersDTO = ordersMapper.toDto(updatedOrders);
 
         restOrdersMockMvc.perform(put("/api/orders")
@@ -320,6 +346,9 @@ public class OrdersResourceIntTest extends AbstractCassandraTest {
         assertThat(testOrders.getTotalPrice()).isEqualTo(UPDATED_TOTAL_PRICE);
         assertThat(testOrders.getDeliveryAddress()).isEqualTo(UPDATED_DELIVERY_ADDRESS);
         assertThat(testOrders.getSpecialNote()).isEqualTo(UPDATED_SPECIAL_NOTE);
+        assertThat(testOrders.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        assertThat(testOrders.getLastModifiedAt()).isEqualTo(UPDATED_LAST_MODIFIED_AT);
+        assertThat(testOrders.getLastModifiedBy()).isEqualTo(UPDATED_LAST_MODIFIED_BY);
     }
 
     @Test

@@ -1,0 +1,67 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="foodClientApp.orderServiceOrders.home.title">Orders</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-orders" [routerLink]="['/orders/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="foodClientApp.orderServiceOrders.home.createLabel">
+            Create new Orders
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <button class="btn btn-secondary" (click)="check()">check</button>
+    <div class="table-responsive" *ngIf="orders">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="foodClientApp.orderServiceOrders.restaurantId">Restaurant Id</span></th>
+            <th><span jhiTranslate="foodClientApp.orderServiceOrders.userId">User Id</span></th>
+            <th><span jhiTranslate="foodClientApp.orderServiceOrders.status">Status</span></th>
+            <th><span jhiTranslate="foodClientApp.orderServiceOrders.paymentStatus">Payment Status</span></th>
+            <th><span jhiTranslate="foodClientApp.orderServiceOrders.totalPrice">Total Price</span></th>
+            <th><span jhiTranslate="foodClientApp.orderServiceOrders.deliveryAddress">Delivery Address</span></th>
+            <th><span jhiTranslate="foodClientApp.orderServiceOrders.specialNote">Special Note</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let orders of orders ;trackBy: trackId">
+                <td><a [routerLink]="['/orders', orders.id, 'view' ]">{{orders.id}}</a></td>
+                <td>{{orders.restaurantId}}</td>
+                <td>{{orders.userId}}</td>
+                <td>{{orders.status}}</td>
+                <td>{{orders.paymentStatus}}</td>
+                <td>{{orders.totalPrice}}</td>
+                <td>{{orders.deliveryAddress}}</td>
+                <td>{{orders.specialNote}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/orders', orders.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/orders', orders.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'orders/'+ orders.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

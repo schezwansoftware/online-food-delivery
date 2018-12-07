@@ -42,6 +42,18 @@
         {
             "fieldName": "specialNote",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "createdAt",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lastModifiedAt",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20181206065354",
