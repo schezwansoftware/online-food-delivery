@@ -3,6 +3,7 @@ package com.codesetters.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.codesetters.service.OrdersService;
 import com.codesetters.service.dto.Order;
+import com.codesetters.service.dto.OrderItemDTO;
 import com.codesetters.web.rest.errors.BadRequestAlertException;
 import com.codesetters.web.rest.util.HeaderUtil;
 import com.codesetters.service.dto.OrdersDTO;
@@ -41,23 +42,23 @@ public class OrdersResource {
     /**
      * POST  /orders : Create a new orders.
      *
-     * @param order the ordersDTO to create
+     * @param ordersDTO the ordersDTO to create
      * @return the ResponseEntity with status 201 (Created) and with body the new ordersDTO, or with status 400 (Bad Request) if the orders has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/orders")
     @Timed
-    public ResponseEntity<Order> createOrders(@Valid @RequestBody Order order) throws URISyntaxException {
-        log.debug("REST request to create Order : {}", order);
-        if (order.getOrderInfo().getId() != null) {
-            throw new BadRequestAlertException("A new order cannot already have an ID", ENTITY_NAME, "idexists");
+    public ResponseEntity<OrdersDTO> createOrders(@Valid @RequestBody OrdersDTO ordersDTO) throws URISyntaxException {
+        log.debug("REST request to save Orders : {}", ordersDTO);
+        if (ordersDTO.getId() != null) {
+            throw new BadRequestAlertException("A new orders cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Order result = ordersService.createOrder(order);
-        return ResponseEntity.created(new URI("/api/orders/" + result.getOrderInfo().getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getOrderInfo().getId().toString()))
+        ordersDTO.setId(UUID.randomUUID());
+        OrdersDTO result = ordersService.save(ordersDTO);
+        return ResponseEntity.created(new URI("/api/orders/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
-
 
     /**
      * PUT  /orders : Updates an existing orders.

@@ -5,6 +5,7 @@ import org.springframework.data.cassandra.core.mapping.Table;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -36,6 +37,12 @@ public class Orders implements Serializable {
     private String deliveryAddress;
 
     private String specialNote;
+
+    private Instant createdAt;
+
+    private Instant lastModifiedAt;
+
+    private String lastModifiedBy;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public UUID getId() {
@@ -136,6 +143,45 @@ public class Orders implements Serializable {
     public void setSpecialNote(String specialNote) {
         this.specialNote = specialNote;
     }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Orders createdAt(Instant createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Instant getLastModifiedAt() {
+        return lastModifiedAt;
+    }
+
+    public Orders lastModifiedAt(Instant lastModifiedAt) {
+        this.lastModifiedAt = lastModifiedAt;
+        return this;
+    }
+
+    public void setLastModifiedAt(Instant lastModifiedAt) {
+        this.lastModifiedAt = lastModifiedAt;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public Orders lastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+        return this;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -169,6 +215,9 @@ public class Orders implements Serializable {
             ", totalPrice=" + getTotalPrice() +
             ", deliveryAddress='" + getDeliveryAddress() + "'" +
             ", specialNote='" + getSpecialNote() + "'" +
+            ", createdAt='" + getCreatedAt() + "'" +
+            ", lastModifiedAt='" + getLastModifiedAt() + "'" +
+            ", lastModifiedBy='" + getLastModifiedBy() + "'" +
             "}";
     }
 }

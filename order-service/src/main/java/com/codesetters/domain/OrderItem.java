@@ -3,6 +3,8 @@ package com.codesetters.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.cassandra.core.mapping.Table;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
@@ -18,14 +20,20 @@ public class OrderItem implements Serializable {
     @Id
     private UUID id;
 
+    @NotNull
     private UUID orderId;
 
+    @NotNull
     private String itemName;
 
     private UUID itemId;
 
+    @NotNull
+    @Min(value = 1)
     private Double itemPrice;
 
+    @NotNull
+    @Min(value = 1)
     private Integer itemQuantity;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

@@ -1,5 +1,6 @@
 package com.codesetters.service.dto;
 
+import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -29,6 +30,12 @@ public class OrdersDTO implements Serializable {
     private String deliveryAddress;
 
     private String specialNote;
+
+    private Instant createdAt;
+
+    private Instant lastModifiedAt;
+
+    private String lastModifiedBy;
 
     public UUID getId() {
         return id;
@@ -94,6 +101,30 @@ public class OrdersDTO implements Serializable {
         this.specialNote = specialNote;
     }
 
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Instant getLastModifiedAt() {
+        return lastModifiedAt;
+    }
+
+    public void setLastModifiedAt(Instant lastModifiedAt) {
+        this.lastModifiedAt = lastModifiedAt;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -126,6 +157,9 @@ public class OrdersDTO implements Serializable {
             ", totalPrice=" + getTotalPrice() +
             ", deliveryAddress='" + getDeliveryAddress() + "'" +
             ", specialNote='" + getSpecialNote() + "'" +
+            ", createdAt='" + getCreatedAt() + "'" +
+            ", lastModifiedAt='" + getLastModifiedAt() + "'" +
+            ", lastModifiedBy='" + getLastModifiedBy() + "'" +
             "}";
     }
 }
