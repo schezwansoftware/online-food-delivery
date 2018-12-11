@@ -19,6 +19,10 @@ import { FoodClientEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 import { FoodClientAppZomatoRestaurantsModule } from './zomato-restaurants/zomato-restaurants.module';
 import { FoodClientAppConfirmRestaurantModule } from './confirm-restaurant/confirm-restaurant.module';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from 'app/shared/environment/environment';
+
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -31,6 +35,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
         FoodClientSharedModule,
         FoodClientCoreModule,
+        AngularFireAuthModule,
         FoodClientHomeModule,
         FoodClientAccountModule,
         FoodClientEntityModule,

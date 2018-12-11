@@ -111,8 +111,21 @@
                         </small>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="mobileNumber" class="form-control-label">Contact</label>
+                    <input type="text" class="form-control" (keypress)="keyPress($event)" id="mobileNumber" name="mobileNumber" #mobileNumber="ngModel" [(ngModel)]="registerAccount.mobileNumber" minlength="10" maxlength="10" />
+                    <button type="button" (click)="sendLoginCode()">Send Otp</button>
+                </div>
+                <div id="recaptcha-container"></div>
+                <div *ngIf="otpSent">
+                    <hr>
+                    <label>Enter your Verification Code Here</label><br>
+                    <input type="text" name="code" [(ngModel)]="verificationCode">
 
-                <button type="submit" [disabled]="registerForm.form.invalid" class="btn btn-primary" jhiTranslate="register.form.button">Register</button>
+                    <button (click)="verifyLoginCode()">Verify</button>
+                </div>
+
+                <button *ngIf="matchOtp" type="submit" [disabled]="registerForm.form.invalid" class="btn btn-primary" jhiTranslate="register.form.button">Register</button>
             </form>
             <p></p>
             <div class="alert alert-warning">

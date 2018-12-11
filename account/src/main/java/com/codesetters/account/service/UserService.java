@@ -102,6 +102,7 @@ public class UserService {
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(AuthoritiesConstants.USER);
         newUser.setAuthorities(authorities);
+        newUser.setMobileNumber(userDTO.getMobileNumber());
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
