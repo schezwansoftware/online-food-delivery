@@ -187,4 +187,11 @@ public class UserResource {
         userService.deleteUser(login);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert( "userManagement.deleted", login)).build();
     }
+
+    @PostMapping("/user/{contact}")
+    @Timed
+    public ResponseEntity<String> checkContact(@PathVariable String contact){
+        log.debug("REST request to Check User contact already exist or not: {}", contact);
+       return ResponseEntity.ok().body("no record with same contact");
+    }
 }

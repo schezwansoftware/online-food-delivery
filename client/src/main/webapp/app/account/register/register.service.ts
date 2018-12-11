@@ -12,4 +12,7 @@ export class Register {
         console.log(account.mobileNumber);
         return this.http.post(SERVER_API_URL + 'account/api/register', account);
     }
+    checkContact(contact: string) {
+        return this.http.post(SERVER_API_URL + '/api/user', contact);
+    }
 }

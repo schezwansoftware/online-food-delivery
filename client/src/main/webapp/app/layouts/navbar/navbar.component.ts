@@ -84,6 +84,9 @@ export class NavbarComponent implements OnInit {
     }
 
     loadRestaurantDetails() {
+        this.principal.hasAuthority('ROLE_USER').then(value => {
+            this.router.navigate(['restaurant']);
+        });
         this.principal.hasAnyAuthority(['ROLE_RESTAURANT_EXECUTIVE']).then(value => {
             if (value) {
                 this.restaurantService.findByLogin().subscribe(

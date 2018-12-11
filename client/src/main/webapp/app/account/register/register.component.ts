@@ -26,7 +26,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     modalRef: NgbModalRef;
     windowRef: any;
     otpSent: boolean;
-    matchOtp: boolean;
+    matchOtp: boolean = false;
+    wrongOtp: boolean = false;
     confirmationResult: any;
     verificationCode: string;
     recaptchaVerifier: firebase.auth.RecaptchaVerifier;
@@ -49,9 +50,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#login'), 'focus', []);
         this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
         this.recaptchaVerifier.render();
+        this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#login'), 'focus', []);
     }
 
     register() {
@@ -119,19 +120,22 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }
 
     verifyLoginCode() {
-        this.matchOtp = false;
         this.confirmationResult
             .confirm(this.verificationCode)
             .then(result => {
                 this.matchOtp = true;
                 console.log(result);
-                return;
             })
-            .catch(error => console.log(error, 'Incorrect code entered?'));
+            .catch(error => {
+                this.matchOtp = false;
+                this.wrongOtp = true;
+                console.log(error, 'Incorrect code entered?');
+            });
     }
 
     getNumber() {
         var country = '+91';
+
         return country + this.registerAccount.mobileNumber;
     }
 }

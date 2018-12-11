@@ -262,4 +262,16 @@ public class UserService {
     public Optional<User> getUserWithAuthorities() {
         return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneByLogin);
     }
+    public void checkContact(String contact)
+    {
+        List<User> users = userRepository.findAll().stream().filter(user -> user.getMobileNumber().equals(contact)).collect(Collectors.toList());
+        if (!users.isEmpty()) {
+            throw  new BadRequestAlertException("Contact is","already","used");
+        }
+
+
+
+
+
+    }
 }
