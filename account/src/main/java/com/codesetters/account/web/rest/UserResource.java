@@ -157,6 +157,22 @@ public class UserResource {
                 .map(UserDTO::new));
     }
 
+
+    /**
+     * GET /users/:login : get the "login" user.
+     *
+     * @param id the login of the user to find
+     * @return the ResponseEntity with status 200 (OK) and with body the "login" user, or with status 404 (Not Found)
+     */
+    @GetMapping("/users/id/{id}")
+    @Timed
+    public ResponseEntity<UserDTO> getUserById(@PathVariable String id) {
+        log.debug("REST request to get User : {}", id);
+        return ResponseUtil.wrapOrNotFound(
+            userService.getUserWithAuthorities(id)
+                .map(UserDTO::new));
+    }
+
     /**
      * DELETE /users/:login : delete the "login" User.
      *

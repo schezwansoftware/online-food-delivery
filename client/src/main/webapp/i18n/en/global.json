@@ -13,6 +13,7 @@
                 "restaurantServiceMenu": "Menu",
                 "restaurantServiceDishes": "Dishes",
                 "restaurantServiceRestaurantSchedule": "Restaurant Schedule",
+                "orderServiceOrders": "Orders",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

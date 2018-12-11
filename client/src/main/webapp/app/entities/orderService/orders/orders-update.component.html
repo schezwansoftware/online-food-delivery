@@ -1,0 +1,83 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-orders-heading" jhiTranslate="foodClientApp.orderServiceOrders.home.createOrEditLabel">Create or edit a Orders</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!orders.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="orders.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="foodClientApp.orderServiceOrders.restaurantId" for="field_restaurantId">Restaurant Id</label>
+                    <input type="text" class="form-control" name="restaurantId" id="field_restaurantId"
+                        [(ngModel)]="orders.restaurantId" required/>
+                    <div [hidden]="!(editForm.controls.restaurantId?.dirty && editForm.controls.restaurantId?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.restaurantId?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="foodClientApp.orderServiceOrders.userId" for="field_userId">User Id</label>
+                    <input type="text" class="form-control" name="userId" id="field_userId"
+                        [(ngModel)]="orders.userId" required/>
+                    <div [hidden]="!(editForm.controls.userId?.dirty && editForm.controls.userId?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.userId?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="foodClientApp.orderServiceOrders.status" for="field_status">Status</label>
+                    <input type="text" class="form-control" name="status" id="field_status"
+                        [(ngModel)]="orders.status" required/>
+                    <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="foodClientApp.orderServiceOrders.paymentStatus" for="field_paymentStatus">Payment Status</label>
+                    <input type="text" class="form-control" name="paymentStatus" id="field_paymentStatus"
+                        [(ngModel)]="orders.paymentStatus" required/>
+                    <div [hidden]="!(editForm.controls.paymentStatus?.dirty && editForm.controls.paymentStatus?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.paymentStatus?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="foodClientApp.orderServiceOrders.totalPrice" for="field_totalPrice">Total Price</label>
+                    <input type="number" class="form-control" name="totalPrice" id="field_totalPrice"
+                        [(ngModel)]="orders.totalPrice" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="foodClientApp.orderServiceOrders.deliveryAddress" for="field_deliveryAddress">Delivery Address</label>
+                    <input type="text" class="form-control" name="deliveryAddress" id="field_deliveryAddress"
+                        [(ngModel)]="orders.deliveryAddress" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="foodClientApp.orderServiceOrders.specialNote" for="field_specialNote">Special Note</label>
+                    <input type="text" class="form-control" name="specialNote" id="field_specialNote"
+                        [(ngModel)]="orders.specialNote" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

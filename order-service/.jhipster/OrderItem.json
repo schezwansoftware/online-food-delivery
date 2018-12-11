@@ -1,0 +1,35 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "orderService",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "orderId",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "itemName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "itemId",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "itemPrice",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "itemQuantity",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20181206070153",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "order_item",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "microserviceName": "orderService"
+}

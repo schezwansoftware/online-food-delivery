@@ -1,0 +1,67 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "orderService",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "restaurantId",
+            "fieldType": "UUID",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "userId",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "paymentStatus",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "totalPrice",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "deliveryAddress",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "specialNote",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdAt",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lastModifiedAt",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20181206065354",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "orders",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "microserviceName": "orderService"
+}
