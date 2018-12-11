@@ -1,0 +1,30 @@
+
+{
+    "foodClientApp": {
+        "orderServiceOrderItem" : {
+            "home": {
+                "title": "Order Items",
+                "createLabel": "Create a new Order Item",
+                "createOrEditLabel": "Create or edit a Order Item"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Order Item {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Item"
+            },
+            "orderId": "Order Id",
+            "itemName": "Item Name",
+            "itemId": "Item Id",
+            "itemPrice": "Item Price",
+            "itemQuantity": "Item Quantity"
+        }
+    },
+    "orderServiceApp": {
+        "orderServiceOrderItem" : {
+            "created": "A new Order Item is created with identifier {{ param }}",
+            "updated": "A Order Item is updated with identifier {{ param }}",
+            "deleted": "A Order Item is deleted with identifier {{ param }}"
+        }
+    }
+}

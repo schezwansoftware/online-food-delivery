@@ -74,6 +74,12 @@
                             <span jhiTranslate="global.menu.entities.orderServiceOrders">Orders</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="order-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.orderServiceOrderItem">Order Item</span>
+                        </a>
+                    </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>

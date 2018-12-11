@@ -1,48 +1,91 @@
 <div class="row justify-content-center">
-    <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-orders-heading" jhiTranslate="foodClientApp.orderServiceOrders.home.createOrEditLabel">Create or edit a Orders</h2>
-            <div>
-                <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!orders.id">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="orders.id" readonly />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_restaurantId">Select Restaurant</label>
-                    <select type="text" class="form-control" (change)="loadRestaurantMenu(orders.restaurantId)" name="restaurantId" id="field_restaurantId"
-                        [(ngModel)]="orders.restaurantId" required>
-                        <option *ngFor="let restaurant of restaurants" [value]="restaurant.id" >
-                            {{restaurant.name}}
-                        </option>
+
+    <!--page 1-->
+
+    <div class="col-8" *ngIf="page === 0">
+        <h3>Select Your Restaurant</h3>
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #restaurantForm="ngForm">
+            <div class="form-group">
+                <label class="form-control-label" for="field_restaurantId">Select Restaurant</label>
+                <div class="d-flex">
+                    <select id="field_restaurantId" class="form-control" name="restaurantId" (change)="loadRestaurantMenu(orders.restaurantId)" [(ngModel)]="orders.restaurantId" required>
+                    <option *ngFor="let restaurant of restaurants" [value]="restaurant.id">{{restaurant.name}}</option>
                     </select>
-                    <div [hidden]="!(editForm.controls.restaurantId?.dirty && editForm.controls.restaurantId?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.restaurantId?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="foodClientApp.orderServiceOrders.deliveryAddress" for="field_deliveryAddress">Delivery Address</label>
-                    <input type="text" class="form-control" name="deliveryAddress" id="field_deliveryAddress"
-                        [(ngModel)]="orders.deliveryAddress" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="foodClientApp.orderServiceOrders.specialNote" for="field_specialNote">Special Note</label>
-                    <input type="text" class="form-control" name="specialNote" id="field_specialNote"
-                        [(ngModel)]="orders.specialNote" />
+            </div>
+
+            <div *ngIf="menuItem && menuItem.dishes.length!=0">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th><span>Dish Name</span></th>
+                            <th><span>Dish Type</span></th>
+                            <th><span>Dish Price</span></th>
+                            <th><span>Quantity</span></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let dish of menuItem.dishes">
+                            <td>{{dish.dishName}}</td>
+                            <td>{{dish.dishType}}</td>
+                            <td>{{dish.dishPrice}}</td>
+                            <td>{{getItemQuantity(dish)}}</td>
+                            <td class="text-right">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="button"
+                                            class="btn btn-info btn-sm" (click)="addDish(dish)">
+                                        <fa-icon [icon]="'plus'"></fa-icon><span>&ensp; Add</span>
+                                    </button>
+                                    &emsp;
+                                    <button *ngIf="getItemQuantity(dish) > 0" type="button"
+                                            class="btn btn-info btn-sm" (click)="removeDish(dish)" >
+                                        Remove
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-                </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                <button type="button" (click)="next()" id="save-entity" [disabled]="order.itemsInfo && order.itemsInfo.length === 0" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Next</span>
                 </button>
             </div>
         </form>
     </div>
+
+
+    <!--page 2-->
+
+    <div class="col-8" *ngIf="page === 1">
+        <h3>Add address</h3>
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #addressForm="ngForm">
+            <div>
+                <button type="button" (click)="back()" id="previous_1" class="btn btn-info">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Previous</span>
+                </button>
+                <button type="button" (click)="next()" id="next_1" [disabled]="order.itemsInfo && order.itemsInfo.length === 0" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Next</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!--page 3-->
+
+    <div class="col-8" *ngIf="page === 2">
+        <h3>Confirm Order</h3>
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #addressForm="ngForm">
+            <div>
+                <button type="button" (click)="back()" id="previous_2" class="btn btn-info">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Previous</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
 </div>

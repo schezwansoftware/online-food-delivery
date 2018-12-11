@@ -6,6 +6,7 @@ import { FoodClientMenuModule as RestaurantServiceMenuModule } from './restauran
 import { FoodClientDishesModule as RestaurantServiceDishesModule } from './restaurantService/dishes/dishes.module';
 import { FoodClientRestaurantScheduleModule as RestaurantServiceRestaurantScheduleModule } from './restaurantService/restaurant-schedule/restaurant-schedule.module';
 import { FoodClientOrdersModule as OrderServiceOrdersModule } from './orderService/orders/orders.module';
+import { FoodClientOrderItemModule as OrderServiceOrderItemModule } from './orderService/order-item/order-item.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -17,6 +18,7 @@ import { FoodClientOrdersModule as OrderServiceOrdersModule } from './orderServi
         RestaurantServiceDishesModule,
         RestaurantServiceRestaurantScheduleModule,
         OrderServiceOrdersModule,
+        OrderServiceOrderItemModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],
