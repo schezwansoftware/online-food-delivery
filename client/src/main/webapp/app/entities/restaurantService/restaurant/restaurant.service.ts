@@ -50,6 +50,7 @@ export class RestaurantService {
 
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
+        console.log('response');
         return this.http
             .get<IRestaurant[]>(this.resourceUrl, { params: options, observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
