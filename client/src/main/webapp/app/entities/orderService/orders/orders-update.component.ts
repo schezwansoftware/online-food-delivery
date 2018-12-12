@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -11,6 +11,9 @@ import { MenuService } from '../../restaurantService/menu/menu.service';
 import { IMenuItem } from '../../../shared/model/restaurantService/menu-Item.model';
 import { IDishes } from '../../../shared/model/restaurantService/dishes.model';
 import { IOrderItem } from '../../../shared/model/orderService/order-item.model';
+import { GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
+
+declare let google: any;
 
 @Component({
     selector: 'jhi-orders-update',
@@ -19,7 +22,9 @@ import { IOrderItem } from '../../../shared/model/orderService/order-item.model'
 export class OrdersUpdateComponent implements OnInit {
     orders: IOrders;
     isSaving: boolean;
+    addressType: string;
     restaurants: IRestaurant[];
+    geoCoder: any;
     menuItem: IMenuItem;
     page = 0;
     order: Order = {
@@ -27,12 +32,16 @@ export class OrdersUpdateComponent implements OnInit {
         itemsInfo: []
     };
     orderItem: IOrderItem = {};
+    location: Location = {};
 
     constructor(
         private ordersService: OrdersService,
         private activatedRoute: ActivatedRoute,
         private restaurantService: RestaurantService,
-        private menuService: MenuService
+        private menuService: MenuService,
+        public mapsApiLoader: MapsAPILoader,
+        private zone: NgZone,
+        private wrapper: GoogleMapsAPIWrapper
     ) {}
 
     ngOnInit() {
@@ -41,6 +50,10 @@ export class OrdersUpdateComponent implements OnInit {
             this.orders = orders;
         });
         this.loadAllRestaurants();
+
+        this.mapsApiLoader.load().then(() => {
+            this.geoCoder = new google.maps.Geocoder();
+        });
     }
 
     previousState() {
@@ -93,8 +106,6 @@ export class OrdersUpdateComponent implements OnInit {
         } else {
             x[0].itemQuantity += 1;
         }
-
-        console.log(this.order.itemsInfo);
     }
 
     removeDish(dish: IDishes) {
@@ -107,8 +118,6 @@ export class OrdersUpdateComponent implements OnInit {
             const index = this.order.itemsInfo.indexOf(x[0]);
             this.order.itemsInfo.splice(index, 1);
         }
-
-        console.log(this.order.itemsInfo);
     }
 
     private findDishInOrder(itemId: string): IOrderItem[] {
@@ -132,10 +141,46 @@ export class OrdersUpdateComponent implements OnInit {
         this.page -= 1;
     }
 
-    markCurrentLocation() {}
+    markCurrentLocation() {
+        this.isSaving = true;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                this.location.latitude = position.coords.latitude;
+                this.location.longitude = position.coords.longitude;
+                this.findAddressFromCoordinates(this.location);
+            });
+        } else {
+            alert('Geo Location is not supported by this browser');
+        }
+    }
+
+    private findAddressFromCoordinates(location: Location) {
+        this.geoCoder.geocode(
+            {
+                location: {
+                    lat: location.latitude,
+                    lng: location.longitude
+                }
+            },
+            (result, status) => {
+                this.orders.deliveryAddress = result[0].formatted_address;
+                this.isSaving = true;
+            }
+        );
+    }
+
+    confirmOrder() {
+        this.order.orderInfo = this.orders;
+        console.log(this.order);
+    }
 }
 
 interface Order {
     orderInfo?: IOrders;
     itemsInfo?: IOrderItem[];
+}
+
+interface Location {
+    latitude?: number;
+    longitude?: number;
 }

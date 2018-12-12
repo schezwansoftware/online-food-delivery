@@ -6,4 +6,4 @@ export const VERSION = process.env.VERSION;
 export const DEBUG_INFO_ENABLED: boolean = !!process.env.DEBUG_INFO_ENABLED;
 export const SERVER_API_URL = process.env.SERVER_API_URL;
 export const BUILD_TIMESTAMP = process.env.BUILD_TIMESTAMP;
-export const GOOGLE_API_KEY = 'AIzaSyBg38xs21r_vVnvv0uwe5lzjMI8GuJ099o';
+export const GOOGLE_API_KEY = 'AIzaSyAtaofHD3YwlmHRpYoZmLvjBHTQ5xt_R-Q';
