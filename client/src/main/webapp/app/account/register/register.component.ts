@@ -110,7 +110,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     sendLoginCode() {
         this.confirmationResult = false;
         this.contactUsed = false;
-        s;
         var country = '+91';
         this.getNumber(
             value => {
