@@ -131,6 +131,8 @@ export class OrdersUpdateComponent implements OnInit {
     back() {
         this.page -= 1;
     }
+
+    markCurrentLocation() {}
 }
 
 interface Order {

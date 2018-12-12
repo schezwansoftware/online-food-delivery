@@ -64,6 +64,17 @@
     <div class="col-8" *ngIf="page === 1">
         <h3>Add address</h3>
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #addressForm="ngForm">
+            <div class="form-group">
+                <label class="form-control-label" for="field_restaurantId">Add address</label>
+                <div class="d-flex">
+                    <input id="field_address" class="form-control" name="address" [(ngModel)]="orders.deliveryAddress" required />
+                    &ensp;
+                    <button class="btn btn-success btn-sm">
+                        <fa-icon [icon]="'plus'" ></fa-icon>
+                    </button>
+                </div>
+            </div>
+
             <div>
                 <button type="button" (click)="back()" id="previous_1" class="btn btn-info">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Previous</span>
