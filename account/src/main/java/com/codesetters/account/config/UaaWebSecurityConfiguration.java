@@ -62,6 +62,7 @@ public class UaaWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/content/**")
             .antMatchers("/swagger-ui/index.html")
             .antMatchers("/test/**")
+            .antMatchers("/api/register/{contact}")
             .antMatchers("/h2-console/**");
     }
 

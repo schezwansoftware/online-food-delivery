@@ -190,8 +190,8 @@ public class UserResource {
 
     @PostMapping("/user/{contact}")
     @Timed
-    public ResponseEntity<String> checkContact(@PathVariable String contact){
+    public void checkContact(@PathVariable String contact){
         log.debug("REST request to Check User contact already exist or not: {}", contact);
-       return ResponseEntity.ok().body("no record with same contact");
+         userService.checkContact(contact);
     }
 }

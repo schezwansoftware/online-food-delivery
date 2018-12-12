@@ -28,6 +28,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     otpSent: boolean;
     matchOtp: boolean = false;
     wrongOtp: boolean = false;
+    oneTimeOtp: boolean = false;
+    contactUsed: boolean = false;
     confirmationResult: any;
     verificationCode: string;
     recaptchaVerifier: firebase.auth.RecaptchaVerifier;
@@ -107,19 +109,37 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
     sendLoginCode() {
         this.confirmationResult = false;
-        const num = this.getNumber();
+        var country = '+91';
+        this.getNumber(
+            value => {
+                console.log(value);
+                let num = country + this.registerAccount.mobileNumber;
+                this.firebaseAuth(num);
+            },
+            error1 => {
+                this.contactUsed = true;
+                console.log(error1);
+            }
+        );
+    }
+    firebaseAuth(num) {
         firebase
             .auth()
             .signInWithPhoneNumber(num, this.recaptchaVerifier)
             .then(confirmationResult => {
                 this.confirmationResult = confirmationResult;
                 this.otpSent = true;
+                this.oneTimeOtp = true;
+
                 console.log(confirmationResult);
             })
             .catch(error => console.log(error));
     }
 
     verifyLoginCode() {
+        this.wrongOtp = false;
+        this.oneTimeOtp = false;
+
         this.confirmationResult
             .confirm(this.verificationCode)
             .then(result => {
@@ -133,9 +153,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             });
     }
 
-    getNumber() {
-        var country = '+91';
-
-        return country + this.registerAccount.mobileNumber;
+    getNumber(successcall, errorcall) {
+        this.registerService.checkContact(this.registerAccount.mobileNumber).subscribe(value => successcall(value), err => errorcall(err));
     }
 }

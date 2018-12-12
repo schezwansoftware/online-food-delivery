@@ -9,10 +9,10 @@ export class Register {
     constructor(private http: HttpClient) {}
 
     save(account: any): Observable<any> {
-        console.log(account.mobileNumber);
         return this.http.post(SERVER_API_URL + 'account/api/register', account);
     }
     checkContact(contact: string) {
-        return this.http.post(SERVER_API_URL + '/api/user', contact);
+        console.log(contact);
+        return this.http.post(SERVER_API_URL + `account/api/register/${contact}`, null);
     }
 }

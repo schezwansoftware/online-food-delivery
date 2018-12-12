@@ -6,13 +6,15 @@
             <div class="alert alert-success" *ngIf="success" jhiTranslate="register.messages.success">
                 <strong>Registration saved!</strong> Please check your email for confirmation.
             </div>
-            <div class="alert alert-success" *ngIf="otpSent">
+            <div class="alert alert-success" *ngIf="oneTimeOtp">
                 <strong>Otp sent</strong> Please check your Phone.
             </div>
             <div class="alert alert-danger" *ngIf="wrongOtp">
                 <strong>Wrong Otp enter</strong> Please check your otp.
             </div>
-
+            <div class="alert alert-danger" *ngIf="contactUsed">
+                <strong>Contact already Used</strong> Please check your Contact.
+            </div>
 
             <div class="alert alert-danger" *ngIf="error" jhiTranslate="register.messages.error.fail">
                 <strong>Registration failed!</strong> Please try again later.
@@ -124,7 +126,7 @@
                     <div class="form-group">
                         <label for="mobileNumber" class="form-control-label">Contact</label>
                         <input type="text" class="form-control" (keypress)="keyPress($event)" id="mobileNumber" name="mobileNumber" #mobileNumber="ngModel" [(ngModel)]="registerAccount.mobileNumber" minlength="10" maxlength="10" /><br/>
-                        <div id="recaptcha-container"></div><br/>
+                        <div *ngIf="!otpSent" id="recaptcha-container"></div><br/>
                         <button type="button" *ngIf="!otpSent" (click)="sendLoginCode()">Send Otp</button>
                     </div>
                     <a *ngIf="otpSent" (click)="sendLoginCode()">Otp Not Recieved?Send Again</a>
