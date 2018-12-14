@@ -94,7 +94,7 @@
                 <button type="button" (click)="back()" id="previous_1" class="btn btn-info">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Previous</span>
                 </button>
-                <button type="button" (click)="next()" [disabled]="addressForm.form.invalid" id="next_1" [disabled]="order.itemsInfo && order.itemsInfo.length === 0" class="btn btn-primary">
+                <button type="button" (click)="next()" [disabled]="addressForm.form.invalid" id="next_1" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Next</span>
                 </button>
             </div>
@@ -106,6 +106,24 @@
     <div class="col-8" *ngIf="page === 2">
         <h3>Confirm Order</h3>
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #addressForm="ngForm">
+            <dl class="row-md jh-entity-details">
+                <dt><span>Restaurant</span></dt>
+                <dd>
+                    <span>{{selectedRestaurant.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="foodClientApp.orderServiceOrders.paymentStatus">Payment Status</span></dt>
+                <dd>
+                    <span>{{orders.paymentStatus || 'Pending'}}</span>
+                </dd>
+                <dt><span>Delivery Address</span></dt>
+                <dd>
+                    <span>{{orders.deliveryAddress}}</span>
+                </dd>
+                <dt><span>Special Note</span></dt>
+                <dd>
+                    <span>{{orders.specialNote}}</span>
+                </dd>
+            </dl>
             <div>
                 <button type="button" (click)="back()" id="previous_2" class="btn btn-info">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Previous</span>

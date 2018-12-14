@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -12,6 +12,7 @@ import { IMenuItem } from '../../../shared/model/restaurantService/menu-Item.mod
 import { IDishes } from '../../../shared/model/restaurantService/dishes.model';
 import { IOrderItem } from '../../../shared/model/orderService/order-item.model';
 import { GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
+import { Principal } from '../../../core/auth/principal.service';
 
 declare let google: any;
 
@@ -23,25 +24,30 @@ export class OrdersUpdateComponent implements OnInit {
     orders: IOrders;
     isSaving: boolean;
     addressType: string;
+    account: any;
     restaurants: IRestaurant[];
     geoCoder: any;
     menuItem: IMenuItem;
     page = 0;
+    orderItem: IOrderItem = {};
+    location: Location = {};
+    selectedRestaurant: IRestaurant;
     order: Order = {
         orderInfo: {},
         itemsInfo: []
     };
-    orderItem: IOrderItem = {};
-    location: Location = {};
 
     constructor(
         private ordersService: OrdersService,
         private activatedRoute: ActivatedRoute,
         private restaurantService: RestaurantService,
         private menuService: MenuService,
+        private principal: Principal,
         public mapsApiLoader: MapsAPILoader,
         private zone: NgZone,
-        private wrapper: GoogleMapsAPIWrapper
+        private wrapper: GoogleMapsAPIWrapper,
+        private orderService: OrdersService,
+        private route: Router
     ) {}
 
     ngOnInit() {
@@ -53,6 +59,10 @@ export class OrdersUpdateComponent implements OnInit {
 
         this.mapsApiLoader.load().then(() => {
             this.geoCoder = new google.maps.Geocoder();
+        });
+
+        this.principal.identity().then(account => {
+            this.account = account;
         });
     }
 
@@ -91,6 +101,7 @@ export class OrdersUpdateComponent implements OnInit {
     loadRestaurantMenu(restaurantId: string) {
         this.menuService.findByRestaurantId(restaurantId).subscribe((res: HttpResponse<IMenuItem>) => {
             this.menuItem = res.body;
+            this.selectedRestaurant = this.getSelectedRestaurant(restaurantId);
         });
     }
 
@@ -155,6 +166,9 @@ export class OrdersUpdateComponent implements OnInit {
     }
 
     private findAddressFromCoordinates(location: Location) {
+        if (!this.geoCoder) {
+            this.geoCoder = new google.maps.Geocoder();
+        }
         this.geoCoder.geocode(
             {
                 location: {
@@ -163,21 +177,35 @@ export class OrdersUpdateComponent implements OnInit {
                 }
             },
             (result, status) => {
-                this.orders.deliveryAddress = result[0].formatted_address;
-                this.isSaving = true;
+                if (status === google.maps.GeocoderStatus.OK) {
+                    this.orders.deliveryAddress = result[0].formatted_address;
+                } else {
+                    this.orders.deliveryAddress = 'error occured.Please fill the address manually';
+                }
+                this.isSaving = false;
             }
         );
     }
 
     confirmOrder() {
         this.order.orderInfo = this.orders;
+        this.order.orderInfo.userId = this.account.id;
+        this.order.paymentStatus = 'PENDING';
         console.log(this.order);
+        this.ordersService.create(this.order).subscribe((res: HttpResponse<Order>) => {
+            this.order = res.body;
+            this.route.navigate(['orders', this.order.orderInfo.id, 'view']);
+        });
+    }
+    private getSelectedRestaurant(resturantId: string): IRestaurant {
+        return this.restaurants.filter(x => x.id === resturantId)[0];
     }
 }
 
 interface Order {
     orderInfo?: IOrders;
     itemsInfo?: IOrderItem[];
+    paymentStatus?: string;
 }
 
 interface Location {
