@@ -44,7 +44,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.success = false;
         this.registerAccount = {};
-        firebase.initializeApp(environment.firebase);
         if (!firebase.apps.length) {
             firebase.initializeApp(environment.firebase);
         }

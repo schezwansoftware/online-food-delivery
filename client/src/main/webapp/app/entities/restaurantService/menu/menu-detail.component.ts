@@ -10,7 +10,6 @@ import { IMenu } from 'app/shared/model/restaurantService/menu.model';
 })
 export class MenuDetailComponent implements OnInit {
     menu: IMenu;
-    // ngTabs: []= ['Dessert','starter','']
 
     constructor(private activatedRoute: ActivatedRoute, private dishService: DishesService) {}
 
@@ -25,9 +24,5 @@ export class MenuDetailComponent implements OnInit {
 
     previousState() {
         window.history.back();
-    }
-
-    dishType(evt: any) {
-        // alert(evt.);
     }
 }
