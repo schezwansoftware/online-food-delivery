@@ -80,7 +80,7 @@ export class MenuService {
 
     findByRestaurantId(id: string): Observable<EntityResponseType> {
         return this.http
-            .get<IMenu>(`${this.menuItemUrl}/${id}`, { observe: 'response' })
+            .get<IMenuItem>(`${this.menuItemUrl}/${id}`, { observe: 'response' })
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 }

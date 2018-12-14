@@ -1,6 +1,6 @@
 package com.codesetters.restaurantservice.service.impl;
 
-import com.codesetters.restaurantservice.repository.DishesRepository;
+import com.codesetters.restaurantservice.service.DishesService;
 import com.codesetters.restaurantservice.service.MenuService;
 import com.codesetters.restaurantservice.domain.Menu;
 import com.codesetters.restaurantservice.repository.MenuRepository;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -33,16 +32,17 @@ public class MenuServiceImpl implements MenuService{
 
     private final MenuRepository menuRepository;
 
-    private final DishesRepository dishesRepository;
     private final DishesMapper dishesMapper;
 
     private final MenuMapper menuMapper;
 
-    public MenuServiceImpl(MenuRepository menuRepository, DishesRepository dishesRepository, DishesMapper dishesMapper, MenuMapper menuMapper) {
+    private final DishesService dishesService;
+
+    public MenuServiceImpl(MenuRepository menuRepository, DishesMapper dishesMapper, MenuMapper menuMapper, DishesService dishesService) {
         this.menuRepository = menuRepository;
-        this.dishesRepository = dishesRepository;
         this.dishesMapper = dishesMapper;
         this.menuMapper = menuMapper;
+        this.dishesService = dishesService;
     }
 
     /**
@@ -112,22 +112,33 @@ public class MenuServiceImpl implements MenuService{
         for (DishesDTO dish: menuItemDto.getDishes()){
             dish.setMenuId(savedMenu.getId());
             dish.setId(UUID.randomUUID());
-            dishesRepository.save(dishesMapper.toEntity(dish));
+            dishesService.save(dish);
         }
 
         return menuItemDto;
     }
     @Override
-    public MenuDTO findByRestaurantId(String restaurantId){
+    public MenuItemDto findMenuByRestaurantId(String restaurantId){
 
        List<Menu> menus = menuRepository.findAll().stream().filter(menu -> menu.getRestaurantId().equals(UUID.fromString(restaurantId))).
            collect(Collectors.toList());
        if(!menus.isEmpty()){
-           return menuMapper.toDto(menus.get(0));
-
+           return mapMenuToMenuItem(menuMapper.toDto(menus.get(0)));
        }
-        throw new BadRequestAlertException("can Not find", "menu for ", "this restaurant");
+        throw new BadRequestAlertException("can Not find menu for this restaurant", "menu ", "menuNotFound");
 
     }
 
+
+    private MenuItemDto mapMenuToMenuItem(MenuDTO menuDTO) {
+        List<DishesDTO> menuItems = dishesService.dishByMenuId(menuDTO.getId().toString());
+
+        MenuItemDto menuItemDto = new MenuItemDto();
+        menuItemDto.setDate(menuDTO.getEndDate().toLocalDate());
+        menuItemDto.setMenuId(menuDTO.getId());
+        menuItemDto.setRestaurantId(menuDTO.getRestaurantId());
+        menuItemDto.setDishes(menuItems);
+
+        return menuItemDto;
+    }
 }

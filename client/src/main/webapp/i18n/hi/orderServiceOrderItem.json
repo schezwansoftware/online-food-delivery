@@ -1,0 +1,30 @@
+
+{
+    "foodClientApp": {
+        "orderServiceOrderItem" : {
+            "home": {
+                "title": "OrderItems",
+                "createLabel": "नया Order Item बनाएँ",
+                "createOrEditLabel": "Order Item बनाएँ या संपादित करें"
+            },
+            "delete": {
+                "question": "Order Item [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Order Item"
+            },
+            "orderId": "Order Id",
+            "itemName": "Item Name",
+            "itemId": "Item Id",
+            "itemPrice": "Item Price",
+            "itemQuantity": "Item Quantity"
+        }
+    },
+    "orderServiceApp": {
+        "orderServiceOrderItem" : {
+            "created": "एक नया Order Item [identifier: {{ param }}] तैयार है",
+            "updated": "एक Order Item [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Order Item [identifier: {{ param }}] हटा दिया है"
+        }
+    }
+}
