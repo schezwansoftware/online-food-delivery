@@ -14,6 +14,8 @@ export * from './password-reset/init/password-reset-init.route';
 export * from './register/register.component';
 export * from './register/register.service';
 export * from './register/register.route';
+export * from './restaurantregister/restaurantregister.component';
+export * from './restaurantregister/restaurantregister.route';
 export * from './settings/settings.component';
 export * from './settings/settings.route';
 export * from './account.route';
