@@ -22,8 +22,10 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     errorEmailExists: string;
     errorUserExists: string;
     registerAccount: any;
+    otpNotSent: boolean;
     success: boolean;
     modalRef: NgbModalRef;
+    verifyingOtp: boolean;
     otpSent: boolean;
     matchOtp: boolean;
     wrongOtp: boolean;
@@ -101,6 +103,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }
 
     sendLoginCode() {
+        this.otpNotSent = false;
         this.confirmationResult = false;
         this.contactUsed = false;
         const country = '+91';
@@ -114,7 +117,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             }
         );
     }
+
     firebaseAuth(num) {
+        this.otpNotSent = false;
         firebase
             .auth()
             .signInWithPhoneNumber(num, this.recaptchaVerifier)
@@ -123,10 +128,15 @@ export class RegisterComponent implements OnInit, AfterViewInit {
                 this.otpSent = true;
                 this.oneTimeOtp = true;
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                this.otpNotSent = true;
+            });
     }
 
     verifyLoginCode() {
+        this.otpNotSent = false;
+        this.verifyingOtp = true;
         this.wrongOtp = false;
         this.oneTimeOtp = false;
 
@@ -134,8 +144,10 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             .confirm(this.verificationCode)
             .then(result => {
                 this.matchOtp = true;
+                this.verifyingOtp = false;
             })
             .catch(error => {
+                this.verifyingOtp = false;
                 this.matchOtp = false;
                 this.wrongOtp = true;
             });
