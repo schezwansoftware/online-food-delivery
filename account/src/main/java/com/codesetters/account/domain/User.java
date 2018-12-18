@@ -68,6 +68,8 @@ public class User implements Serializable {
     @Column(name = "reset_date")
     private Instant resetDate = null;
 
+    private String mobileNumber;
+
     @JsonIgnore
     private Set<String> authorities = new HashSet<>();
 
@@ -196,6 +198,15 @@ public class User implements Serializable {
             ", activated='" + activated + '\'' +
             ", langKey='" + langKey + '\'' +
             ", activationKey='" + activationKey + '\'' +
+            ", mobileNumber='" + mobileNumber + '\'' +
             "}";
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 }

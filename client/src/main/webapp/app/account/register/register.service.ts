@@ -11,4 +11,8 @@ export class Register {
     save(account: any): Observable<any> {
         return this.http.post(SERVER_API_URL + 'account/api/register', account);
     }
+    checkContact(contact: string) {
+        console.log(contact);
+        return this.http.post(SERVER_API_URL + `account/api/user/${contact}`, null);
+    }
 }

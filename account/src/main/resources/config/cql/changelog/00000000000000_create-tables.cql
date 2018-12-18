@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS user (
     reset_key text,
     reset_date timestamp,
     authorities set<text>,
+    contact text,
     PRIMARY KEY(id)
 );
 

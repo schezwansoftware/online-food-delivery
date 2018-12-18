@@ -102,6 +102,7 @@ public class UserService {
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(AuthoritiesConstants.USER);
         newUser.setAuthorities(authorities);
+        newUser.setMobileNumber(userDTO.getMobileNumber());
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -260,5 +261,15 @@ public class UserService {
 
     public Optional<User> getUserWithAuthorities() {
         return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneByLogin);
+    }
+
+    public void checkContact(String contact)
+    {
+        List<String> contacts = new ArrayList<>();
+        userRepository.findAll().stream().map(user -> user.getMobileNumber())
+            .forEach(contacts::add);
+        if (contacts.contains(contact)){
+            throw  new BadRequestAlertException("Contact is already used","Account","MobileAlreadyUsed");
+        }
     }
 }

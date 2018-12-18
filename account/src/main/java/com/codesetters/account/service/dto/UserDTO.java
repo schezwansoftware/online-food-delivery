@@ -39,6 +39,8 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    private String mobileNumber;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -52,6 +54,7 @@ public class UserDTO {
         this.activated = user.getActivated();
         this.langKey = user.getLangKey();
         this.authorities = user.getAuthorities();
+        this.mobileNumber = user.getMobileNumber();
     }
 
     public String getId() {
@@ -128,6 +131,15 @@ public class UserDTO {
             ", activated=" + activated +
             ", langKey='" + langKey + '\'' +
             ", authorities=" + authorities +
+            ", mobileNumber=" + mobileNumber +
             "}";
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 }

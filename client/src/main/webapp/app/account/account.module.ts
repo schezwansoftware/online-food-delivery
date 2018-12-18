@@ -6,6 +6,7 @@ import { FoodClientSharedModule } from 'app/shared';
 import {
     PasswordStrengthBarComponent,
     RegisterComponent,
+    RestaurantregisterComponent,
     ActivateComponent,
     PasswordComponent,
     PasswordResetInitComponent,
@@ -19,6 +20,7 @@ import {
     declarations: [
         ActivateComponent,
         RegisterComponent,
+        RestaurantregisterComponent,
         PasswordComponent,
         PasswordStrengthBarComponent,
         PasswordResetInitComponent,

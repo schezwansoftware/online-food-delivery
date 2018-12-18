@@ -9,7 +9,7 @@ import { Register } from 'app/account/register/register.service';
 import { RegisterComponent } from 'app/account/register/register.component';
 
 describe('Component Tests', () => {
-    describe('RegisterComponent', () => {
+    describe('RestaurantregisterComponent', () => {
         let fixture: ComponentFixture<RegisterComponent>;
         let comp: RegisterComponent;
 
