@@ -1,67 +1,68 @@
 <div>
-    <div *ngIf="menu">
+        <div *ngIf="menu">
             <jhi-alert-error></jhi-alert-error>
-           <div class="col-12 row">
-                   <div class="col-4 fa-pull-left">
-                       <h3>Menu Till</h3>{{menu.endDate | date: 'dd/MM/yyyy'}}
-                   </div>
-                    <div class="col-8 fa-pull-right">
-                       <h4>Dishes</h4>
-                       <ngb-tabset >
-                           <ngb-tab title="Main Course">
-                               <ng-template ngbTabContent>
-                                   <table class="table table-sm table-striped">
-                                       <thead>
-                                           <tr>
-                                               <th>Dish Name</th>
-                                               <th>Dish Price</th>
-                                           </tr>
-                                       </thead>
-                                       <tr *ngFor="let dish of maincourseDishes">
-                                           <td>{{dish.dishName}}</td>
-                                           <td>{{dish.dishPrice}}</td>
+           <div class="col-12" >
+               <div>
+                   <h3>Menu valid till <span> <h5>{{menu.endDate | date: 'dd/MM/yyyy'}}</h5></span></h3>
+               </div><br>
+               </div><br>
+               <div class="col-10 justify-content-center">
+                   <ngb-tabset type="pills">
+                       <ngb-tab title="Main Course">
+                           <ng-template ngbTabContent>
+                               <table class="table table-sm table-striped">
+                                   <thead>
+                                       <tr>
+                                           <th>Dish Name</th>
+                                           <th>Dish Price</th>
                                        </tr>
-                                   </table>
-                               </ng-template>
+                                   </thead>
+                                   <tr *ngFor="let dish of maincourseDishes">
+                                       <td>{{dish.dishName}}</td>
+                                       <td>{{dish.dishPrice}}</td>
+                                   </tr>
+                               </table>
+                           </ng-template>
 
-                           </ngb-tab>
-                           <ngb-tab title="Dessert" >
-                               <ng-template ngbTabContent>
-                                   <table class="table table-sm table-striped">
-                                       <thead>
-                                           <tr>
-                                               <th>Dish Name</th>
-                                               <th>Dish Price</th>
+                       </ngb-tab>
+                       <ngb-tab title="Dessert" >
+                           <ng-template ngbTabContent>
+                               <table class="table table-sm table-striped">
+                                   <thead>
+                                       <tr>
+                                           <th>Dish Name</th>
+                                           <th>Dish Price</th>
 
-                                           </tr>
-                                       </thead>
-                                       <tr *ngFor="let dish of dessertDishes">
-                                           <td>{{dish.dishName}}</td>
-                                           <td>{{dish.dishPrice}}</td>
                                        </tr>
-                                   </table>
-                               </ng-template>
+                                   </thead>
+                                   <tr *ngFor="let dish of dessertDishes">
+                                       <td>{{dish.dishName}}</td>
+                                       <td>{{dish.dishPrice}}</td>
+                                   </tr>
+                               </table>
+                           </ng-template>
 
-                           </ngb-tab>
-                           <ngb-tab title="Starter">
-                               <ng-template ngbTabContent>
-                                   <table class="table table-sm table-striped">
-                                       <thead>
-                                           <tr>
-                                               <th>Dish Name</th>
-                                               <th>Dish Price</th>
-                                           </tr>
-                                       </thead>
-                                       <tr *ngFor="let dish of starterDishes">
-                                           <td>{{dish.dishName}}</td>
-                                           <td>{{dish.dishPrice}}</td>
+                       </ngb-tab>
+                       <ngb-tab title="Starter">
+                           <ng-template ngbTabContent>
+                               <table class="table table-sm table-striped">
+                                   <thead>
+                                       <tr>
+                                           <th>Dish Name</th>
+                                           <th>Dish Price</th>
                                        </tr>
-                                   </table>
-                               </ng-template>
-                           </ngb-tab>
-                       </ngb-tabset>
-                   </div>
+                                   </thead>
+                                   <tr *ngFor="let dish of starterDishes">
+                                       <td>{{dish.dishName}}</td>
+                                       <td>{{dish.dishPrice}}</td>
+                                   </tr>
+                               </table>
+                           </ng-template>
+                       </ngb-tab>
+                   </ngb-tabset>
+               </div>
            </div>
+        </div>
 
             <button type="submit"
                     (click)="previousState()"
