@@ -135,11 +135,6 @@ oauth2:
         # Controls session expiration due to inactivity (ignored for remember-me).
         # Negative values disable session inactivity expiration.
         session-timeout-in-seconds: 1800
-#zuul:
-#    routes:
-#        route2:
-#            path: /account/api
-#            url: http://localhost:9697/account/api/register/:contact
 
 # ===================================================================
 # Application specific properties

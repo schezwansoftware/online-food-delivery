@@ -12,6 +12,6 @@ export class Register {
         return this.http.post(SERVER_API_URL + 'account/api/register', account);
     }
     checkContact(contact: string) {
-        return this.http.post(SERVER_API_URL + `account/api/register/${contact}`, null);
+        return this.http.post(SERVER_API_URL + `account/api/user/${contact}`, null);
     }
 }

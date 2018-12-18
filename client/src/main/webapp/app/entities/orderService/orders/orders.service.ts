@@ -15,7 +15,7 @@ export class OrdersService {
 
     constructor(private http: HttpClient) {}
 
-    create(orders: IOrders): Observable<EntityResponseType> {
+    create(orders: any): Observable<EntityResponseType> {
         return this.http.post<IOrders>(this.resourceUrl, orders, { observe: 'response' });
     }
 

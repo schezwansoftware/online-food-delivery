@@ -38,14 +38,8 @@ export class MenuDetailComponent implements OnInit {
 
     funcGroupBy() {
         const data = _.groupBy(this.dishes, 'dishType');
-        console.log(data);
-
         this.dessertDishes = data.Dessert;
         this.starterDishes = data.Starter;
         this.maincourseDishes = data.MainCourse;
-
-        console.log(this.dessertDishes);
-        console.log(this.starterDishes);
-        console.log(this.dessertDishes);
     }
 }

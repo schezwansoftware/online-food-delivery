@@ -14,6 +14,7 @@
                 "restaurantServiceDishes": "Dishes",
                 "restaurantServiceRestaurantSchedule": "Restaurant Schedule",
                 "orderServiceOrders": "Orders",
+                "orderServiceOrderItem": "Order Item",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

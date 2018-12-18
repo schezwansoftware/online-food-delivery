@@ -136,9 +136,9 @@ public class MenuResource {
 
     @GetMapping("/menu-Item/{restaurantId}")
     @Timed
-    public ResponseEntity<MenuDTO> getMenuByRestaurantId(@PathVariable String restaurantId) {
+    public ResponseEntity<MenuItemDto> getMenuByRestaurantId(@PathVariable String restaurantId) {
         log.debug("REST request to get Menu : {}", restaurantId);
-        MenuDTO menuDTO = menuService.findByRestaurantId(restaurantId);
+        MenuItemDto menuDTO = menuService.findMenuByRestaurantId(restaurantId);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(menuDTO));
     }
 

@@ -11,6 +11,8 @@ public class MenuItemDto implements Serializable {
 
     private LocalDate date;
 
+    private UUID menuId;
+
     private UUID restaurantId;
 
    private List<DishesDTO> dishes;
@@ -38,5 +40,13 @@ public class MenuItemDto implements Serializable {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public UUID getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(UUID menuId) {
+        this.menuId = menuId;
     }
 }

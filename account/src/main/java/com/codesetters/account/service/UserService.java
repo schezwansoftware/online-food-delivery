@@ -269,7 +269,7 @@ public class UserService {
         userRepository.findAll().stream().map(user -> user.getMobileNumber())
             .forEach(contacts::add);
         if (contacts.contains(contact)){
-            throw  new BadRequestAlertException("Contact is","already","used");
+            throw  new BadRequestAlertException("Contact is already used","Account","MobileAlreadyUsed");
         }
     }
 }

@@ -17,6 +17,7 @@ import { FoodClientHomeModule } from './home/home.module';
 import { FoodClientAccountModule } from './account/account.module';
 import { FoodClientEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { FoodClientAppZomatoRestaurantsModule } from './zomato-restaurants/zomato-restaurants.module';
 import { FoodClientAppConfirmRestaurantModule } from './confirm-restaurant/confirm-restaurant.module';
 import { AngularFireModule } from 'angularfire2';
@@ -26,6 +27,7 @@ import { environment } from 'app/shared/environment/environment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { GOOGLE_API_KEY } from './app.constants';
 
 @NgModule({
     imports: [
@@ -33,6 +35,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         FoodClientAppRoutingModule,
         NgxSpinnerModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
+        AgmCoreModule.forRoot({ apiKey: GOOGLE_API_KEY }),
         FoodClientSharedModule,
         FoodClientCoreModule,
         AngularFireAuthModule,
@@ -45,6 +48,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
     providers: [
+        GoogleMapsAPIWrapper,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthExpiredInterceptor,
