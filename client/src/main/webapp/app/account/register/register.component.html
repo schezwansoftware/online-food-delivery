@@ -10,7 +10,7 @@
                 <strong>Otp sent</strong> Please check your Phone.
             </div>
             <div class="alert alert-danger" *ngIf="wrongOtp">
-                <strong>Wrong Otp enter</strong> Please check your otp.
+                <strong>Wrong Otp enterd</strong> Please check your otp.
             </div>
             <div class="alert alert-warning" *ngIf="verifyingOtp">
                 <strong>Otp is</strong> verifieng.......
@@ -133,14 +133,14 @@
                         <label for="mobileNumber" class="form-control-label">Contact</label>
                         <input type="text" class="form-control" (keypress)="keyPress($event)" id="mobileNumber" name="mobileNumber" #mobileNumber="ngModel" [(ngModel)]="registerAccount.mobileNumber" minlength="10" maxlength="10" /><br/>
                         <div *ngIf="!otpSent" id="recaptcha-container"></div><br/>
-                        <button type="button" *ngIf="!otpSent" (click)="sendLoginCode()">Send Otp</button>
+                        <button type="button" class="btn-primary" *ngIf="!otpSent" (click)="sendLoginCode()">Send Otp</button>
                     </div>
                     <div *ngIf="otpSent">
                         <hr>
                         <label>Enter your Verification Code Here</label><br>
                         <input type="text" name="code" [(ngModel)]="verificationCode">
 
-                        <button  type="button" (click)="verifyLoginCode()">Verify</button>
+                        <button  class="btn-primary" type="button" (click)="verifyLoginCode()">Verify</button>
                     </div><br>
                     <!--<div *ngIf="otpSent">Otp Not Recieved?</div>-->
                     <!--<button type="button" *ngIf="otpSent" (click)="sendLoginCode()">Send Again</button>-->

@@ -1,22 +1,63 @@
 <div class="row justify-content-center">
-    <div class="col-8">
         <div *ngIf="menu">
             <jhi-alert-error></jhi-alert-error>
            <div class="col-12 row">
-                   <div class="col-4">
+                   <div class="col-4 fa-pull-left">
                        <h3>Menu Till</h3>{{menu.endDate}}
                    </div>
-                    <div class="col-6 fa-pull-right">
+                    <div class="col-8 fa-pull-right">
                        <h3>Dishes</h3>
                        <ngb-tabset >
+                           <ngb-tab title="Main Course">
+                               <ng-template ngbTabContent>
+                                   <table class="table table-sm table-striped">
+                                       <thead>
+                                           <tr>
+                                               <th>Dish Name</th>
+                                               <th>Dish Price</th>
+                                           </tr>
+                                       </thead>
+                                       <tr *ngFor="let dish of maincourseDishes">
+                                           <td>{{dish.dishName}}</td>
+                                           <td>{{dish.dishPrice}}</td>
+                                       </tr>
+                                   </table>
+                               </ng-template>
+
+                           </ngb-tab>
                            <ngb-tab title="Dessert" >
+                               <ng-template ngbTabContent>
+                                   <table class="table table-sm table-striped">
+                                       <thead>
+                                           <tr>
+                                               <th>Dish Name</th>
+                                               <th>Dish Price</th>
+
+                                           </tr>
+                                       </thead>
+                                       <tr *ngFor="let dish of dessertDishes">
+                                           <td>{{dish.dishName}}</td>
+                                           <td>{{dish.dishPrice}}</td>
+                                       </tr>
+                                   </table>
+                               </ng-template>
 
                            </ngb-tab>
                            <ngb-tab title="Starter">
-
-                           </ngb-tab>
-                           <ngb-tab title="sample">
-
+                               <ng-template ngbTabContent>
+                                   <table class="table table-sm table-striped">
+                                       <thead>
+                                           <tr>
+                                               <th>Dish Name</th>
+                                               <th>Dish Price</th>
+                                           </tr>
+                                       </thead>
+                                       <tr *ngFor="let dish of starterDishes">
+                                           <td>{{dish.dishName}}</td>
+                                           <td>{{dish.dishPrice}}</td>
+                                       </tr>
+                                   </table>
+                               </ng-template>
                            </ngb-tab>
                        </ngb-tabset>
                    </div>
@@ -35,4 +76,3 @@
             </button>
         </div>
     </div>
-</div>
