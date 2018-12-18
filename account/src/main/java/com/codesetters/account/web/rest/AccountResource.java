@@ -195,11 +195,5 @@ public class AccountResource {
             password.length() <= ManagedUserVM.PASSWORD_MAX_LENGTH;
     }
 
-    @PostMapping("/register/{contact}")
-    @Timed
-    public ResponseEntity checkContact(@PathVariable String contact){
-        log.debug("REST request to Check User contact already exist or not: {}", contact);
-        userService.checkContact(contact);
-        return ResponseEntity.ok().build();
-    }
+
 }
