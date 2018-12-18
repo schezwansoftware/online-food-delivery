@@ -13,6 +13,6 @@ export class Register {
     }
     checkContact(contact: string) {
         console.log(contact);
-        return this.http.post(SERVER_API_URL + `account/api/register/${contact}`, null);
+        return this.http.post(SERVER_API_URL + `account/api/user/${contact}`, null);
     }
 }
