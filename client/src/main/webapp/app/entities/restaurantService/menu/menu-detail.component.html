@@ -3,10 +3,10 @@
             <jhi-alert-error></jhi-alert-error>
            <div class="col-12 row">
                    <div class="col-4 fa-pull-left">
-                       <h3>Menu Till</h3>{{menu.endDate}}
+                       <h3>Menu Till</h3>{{menu.endDate | date: 'dd/MM/yyyy'}}
                    </div>
                     <div class="col-8 fa-pull-right">
-                       <h3>Dishes</h3>
+                       <h4>Dishes</h4>
                        <ngb-tabset >
                            <ngb-tab title="Main Course">
                                <ng-template ngbTabContent>
